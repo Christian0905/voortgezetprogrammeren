@@ -1,0 +1,2 @@
+cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\javac.exe" -classpath $(CURRENT_DIRECTORY) $(FULL_CURRENT_PATH)
+cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\java.exe" -cp $(CURRENT_DIRECTORY) $(NAME_PART)
