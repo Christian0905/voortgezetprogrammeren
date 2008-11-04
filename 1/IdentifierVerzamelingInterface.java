@@ -9,21 +9,21 @@
  *	<b>PRE</b><br>
  *	-<br>
  *	<b>POST</b><br>
- *	Er wordt een leeg IdentifierVerzameling object gemaakt.
+ *	Er is een leeg IdentifierVerzameling object gemaakt.
  *
  *	<h3>IdentifierVerzameling(IdentifierVerzameling src);</h3>
  *	<b>PRE</b><br>
  *	-<br>
  *	<b>POST</b><br>
- *	Er wordt een nieuw IdentifierVerzameling-object gemaakt.<br>
+ *	Er is een nieuw IdentifierVerzameling-object gemaakt.<br>
  *	De inhoud van dit nieuwe object is een kopie van de inhoud van src.
  */
 
 public interface IdentifierVerzamelingInterface {
 
-	/** @elementen Verzamelingen met Identifiers van het type IdentifierVerzameling
+	/** @elementen Identifiers van het type Identifier
 	    @Structuur Geen
-	    @Domein    Verzamelingen van minimaal 0 en maximaal 20 Identifiers
+	    @Domein    Alle mogelijke verzamelingen van minimaal 0 en maximaal 20 Identifiers
 	    */
 
 	/** @preconditie -
@@ -32,23 +32,24 @@ public interface IdentifierVerzamelingInterface {
 	void init();
 	
 	/** @preconditie  -
-	    @postconditie Een kopie van Identifier element is toegevoegd aan de verzameling, indien deze nog niet aanwezig was.
+	    @postconditie Een kopie van element zit in de verzameling
+					  FAILURE er zijn meer dan 20 elementen
 	    */
 	void voegToe(Identifier element) throws Exception;
 	
 	/** @preconditie  -
-	    @postconditie Identifier element is verwijdert uit de verzameling
+	    @postconditie Element zit niet in IdentifierVerzameling
 	    */
 	void verwijder(Identifier element);
 	
-	/** @preconditie  - De IdentifierVerzameling is niet leeg
-	    @postconditie Een kopie van een element uit IdentifierVerzameling wordt geretourneerd
+	/** @preconditie  De IdentifierVerzameling is niet leeg
+	    @postconditie Een kopie van een element uit IdentifierVerzameling is geretourneerd  \\ wat doen we hier mee?
 	    */
 	Identifier geefIdentifier();
 	
 	/** @preconditie  - 
 	    @postconditie TRUE : element is reeds aanwezig in de IdentifierVerzameling
-	   	  	 FALSE: element is nog niet aanwezig in de IdentifierVerzameling
+	   	  	 FALSE: element is niet aanwezig in de IdentifierVerzameling
 	    */
 	boolean isAanwezig(Identifier element);
 	
@@ -59,12 +60,12 @@ public interface IdentifierVerzamelingInterface {
 	boolean isLeeg();
 	
 	/** @preconditie  -
-	    @postconditie Een string representatie van IdentifierVerzameling wordt geretourneerd
+	    @postconditie Een string representatie van IdentifierVerzameling is geretourneerd
 	    */
 	String toString();
 	
 	/** @preconditie  -
-	    @postconditie Het aantal elementen van IdentifierVerzameling wordt geretourneerd
+	    @postconditie Het aantal elementen van IdentifierVerzameling is geretourneerd
 	    */
 	int aantalElementen();
 	
