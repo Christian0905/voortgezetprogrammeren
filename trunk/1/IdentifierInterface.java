@@ -9,18 +9,18 @@
  *	<b>PRE</b><br>
  *	-<br>
  *	<b>POST</b><br>
- *	Er wordt een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is nog niet gedefinieerd.
+ *	Er is een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is "a".
  *
  *	<h3>Identifier(Identifier src)</h3>
  *	<b>PRE</b><br>
  *	-<br>
  *	<b>POST</b><br>
- *	Er wordt een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is een kopie van Identifier src.
+ *	Er is een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is een kopie van Identifier src.
  */
 
 public interface IdentifierInterface {
 
-	/** @elementen identifiers van het type Identifier
+	/** @elementen Characters van het type char
 	    @structuur lineair
 	    @domein    Alle rijen van alfanumerieke tekens die beginnen met een letter en minimaal 1 character lang zijn.
 	*/
@@ -36,19 +36,15 @@ public interface IdentifierInterface {
 	void append(char c);
 
 	/** @preconditie i >= 0 en i is niet groter dan (het aantal karakters van de Identifier - 1)
-	    @postconditie Het karakter op indexpositie i wordt geretourneerd
+	    @postconditie Het karakter op indexpositie i is geretourneerd
 	   */
 	char charAt(int i);
 
 	/** @preconditie  -
-	    @postconditie Het aantal characters van de Identifier wordt geretourneerd
+	    @postconditie Het aantal characters van de Identifier is geretourneerd
+	    @postconditie Het aantal characters van de Identifier is geretourneerd
 	   */
 	int length();
-
-	/** @preconditie  -
-	    @postconditie Een string representatie van de Identifier wordt geretourneerd
-	   */
-	String toString();
 
 	/** @preconditie  -
 	    @postconditie TRUE : obj bevat dezelfde karakters als de huidige Identifier
