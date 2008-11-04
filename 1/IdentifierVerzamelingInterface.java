@@ -43,7 +43,7 @@ public interface IdentifierVerzamelingInterface {
 	void verwijder(Identifier element);
 	
 	/** @preconditie  De IdentifierVerzameling is niet leeg
-	    @postconditie Een kopie van een element uit IdentifierVerzameling is geretourneerd  \\ wat doen we hier mee?
+	    @postconditie Een kopie van een willekeurig element uit IdentifierVerzameling is geretourneerd
 	    */
 	Identifier geefIdentifier();
 	
