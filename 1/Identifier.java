@@ -2,7 +2,7 @@ class Identifier {
 
 	private StringBuffer identifier;
 	
-	Identifier() {
+	Identifier() throws Exception {
 		init('a');
 	}
 	
@@ -10,7 +10,7 @@ class Identifier {
 		identifier = new StringBuffer(src.identifier);
 	}
 	
-	public void init(char c) {//throws Exception {
+	public void init(char c) throws Exception {
 		identifier = new StringBuffer();
 		identifier.append(c);
 	}

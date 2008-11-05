@@ -1,7 +1,7 @@
 /**
  * IdentifierVerzamling-ADT voor opdracht 1
- * @author	Jan van der Lugt
  * @author	Twan v.d. Loo
+ * @author	Jan van der Lugt
  */
  
 /**	@constructor
