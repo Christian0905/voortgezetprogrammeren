@@ -67,7 +67,7 @@ public interface IdentifierVerzamelingInterface {
 	/** @preconditie  -
 	    @postconditie Het aantal elementen van IdentifierVerzameling is geretourneerd
 	    */
-	int aantalElementen();
+	int aantalIdentifiers();
 	
 	/** @preconditie  -
 	    @postconditie Een nieuwe IdentifierVerzameling is geretourneerd met als inhoud de Identifier elementen die
