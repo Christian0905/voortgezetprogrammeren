@@ -20,8 +20,8 @@
 
 public interface IdentifierInterface {
 
-	/** @elementen Characters van het type char
-	    @structuur lineair
+	/** @elementen Karakters van het type char
+	    @structuur Lineair
 	    @domein    Alle rijen van alfanumerieke tekens die beginnen met een letter en minimaal 1 character lang zijn.
 	*/
 

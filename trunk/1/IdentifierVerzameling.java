@@ -22,7 +22,7 @@ class IdentifierVerzameling {
 		aantalElementen = 0;
 	}
 	
-	public void voegToe(Identifier element) { //throws exception
+	public void voegToe(Identifier element) throws Exception {
 		identifierArray[aantalElementen] = new Identifier(element);
 		aantalElementen += 1;
 	}

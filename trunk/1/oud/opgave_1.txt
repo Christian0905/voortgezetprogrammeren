@@ -1,0 +1,151 @@
+
+Gebruik bij de onderstaande opgave indien nodig de volgende methodes.
+
+N.B. Om de onderstaande methodes te laten werken moet de delimiter van het 
+     Scanner-object, met de methode useDelimiter() zijn ingesteld op de lege 
+     String.
+
+// Methode om 1 character in te lezen.
+char nextChar (Scanner in) {
+    return in.next().charAt(0);
+}
+
+// De volgende drie methodes hebben de gemeenschappelijke eigenschap dat ze
+// geen character inlezen van de invoer maar via een boolean retourneren of
+// een bepaald character met nextChar() zou kunnen worden ingelezen.
+
+// Methode om te kijken of het volgende character dat gelezen zou worden bij
+// een aanroep van nextChar() gelijk is aan het meegegeven character.
+boolean nextCharIs (Scanner in, char c) {
+    return in.hasNext(Pattern.quote(c+""));
+}
+
+// Methode om te kijken of het volgende character dat gelezen zou worden bij
+// een aanroep van nextChar() een cijfer is.
+boolean nextCharIsDigit (Scanner in) {
+    return in.hasNext("[0-9]");
+}
+
+// Methode om te kijken of het volgende character dat gelezen zou worden bij
+// een aanroep van nextChar() een letter is.
+boolean nextCharIsLetter (Scanner in) {
+    return in.hasNext("[a-zA-Z]");
+}
+
+
+                   - - - - - - - - - - - - - - - - - - - -  
+
+
+
+OPGAVE 1.   Eenvoudige operaties op verzamelingen van identifiers.
+
+Een interactief programma is een programma waarbij er een interactie is tussen
+de gebruiker en het programma. Concreet: het programma stelt vragen en de 
+gebruiker geeft antwoorden, waarna het programma deze antwoorden gaat verwerken
+en de resultaten afdrukt.
+
+Voor deze opgave moet er een interactief programma geschreven worden dat
+twee verzamelingen van identifiers van standaard invoer inleest, op deze twee
+ingelezen verzamelingen een viertal operaties uitvoert, en de resultaten
+van deze operaties op de standaard uitvoer afdrukt.
+
+De identifiers, die de elementen vormen van de verzamelingen waarmee in deze 
+opgave gewerkt zal worden, moeten voldoen aan de volgende voorwaarden :
+	- Alleen alfanumerieke characters zijn toegestaan als elementen van een
+	  een identifier.
+	  Een identifier begint met een letter.
+	- Identifiers is minimaal 1 character lang.
+
+De verzamelingen, waarmee in deze opgave gewerkt wordt, moeten voldoen aan de 
+onderstaande voorwaarden :
+	- Alleen identifiers, die voldoen aan de in deze opgave beschreven 
+	  voorwaarden, zijn toegestaan als elementen van een verzameling.
+	- Verzamelingen kunnen minimaal 0 identifiers en maximaal 20 
+	  identifiers bevatten.
+
+De vier operaties op de verzamelingen zijn als volgt gedefinieerd :
+	verschil   : alle elementen die wel in de 1e maar niet in de 2e
+		     verzameling zitten.
+	doorsnede  : alle elementen die in beide verzamelingen zitten
+	vereniging : alle elementen van beide verzamelingen.
+		     (N.B. verzamelingen bevatten per definitie geen dubbele
+		      elementen.)
+	symmetrisch
+	verschil   : alle elementen van beide verzamelingen die niet in de
+		     doorsnede zitten.
+
+De invoer van dit programma komt van standaard invoer (het toetsenbord) en de
+uitvoer gaat naar standaard uitvoer (het scherm). Het programma vraagt twee
+maal om een verzameling van identifiers en voert vervolgens de operaties 
+verschil, doorsnede, vereniging en symmetrisch verschil uit. Het is de bedoeling
+dat het bovenstaand beschreven proces herhaald wordt, totdat er als antwoord op
+een van de vragen van het programma een CTRL-D is ingetikt. B.v. :
+
+	Geef eerste verzameling : {aap noot mies mies2}
+	Geef tweede verzameling : {aal w xyz noot}
+	verschil   = aap mies mies2
+	doorsnede  = noot
+	vereniging = aap noot mies2 aal w xyz mies
+	sym. vers. = aap mies aal w xyz mies2
+
+	Geef eerste verzameling : {een twee drie}
+	Geef tweede verzameling : {}
+	verschil   = een twee drie
+	doorsnede  = 
+	vereniging = een twee drie
+	sym. vers. = een twee drie
+
+	Geef eerste verzameling :
+	Geef eerste verzameling : {piet jan henk
+	De '}' ontbreekt
+	Geef eerste verzameling : {piet jan henk}
+	Geef tweede verzameling : ^D
+
+Hierbij werd de tekst achter de dubbele punt door de gebruiker ingetikt.
+
+Verzamelingen op de invoer mogen maximaal slechts 10 identifiers bevatten, dit 
+om te zorgen dat het bepalen van de vereniging en het symmetrisch verschil 
+altijd mogelijk is. 
+De identifiers in een verzameling op de invoer worden gescheiden door spaties 
+en worden voorafgegaan en afgesloten door respectievelijk een '{' en een '}'. 
+Omdat verzamelingen per definite niet geordend zijn, zijn er geen eisen aan de 
+volgorde van de identifiers bij invoer en uitvoer van een verzameling.
+Bij foute invoer moet er, voordat de vraag herhaald wordt, een duidelijke 
+eenregelige foutmelding gegeven worden. Geen invoer wordt niet als een fout
+gezien, maar moet wel tot het herhalen van de vraag leiden.
+
+Voor de eerste bespreking met de begeleider is het de bedoeling om :
+	- de opgave bestudeerd te hebben en herkend te hebben welke 
+	  objecten er bij de uitwerking gebruikt moeten worden
+	- voor ieder object een specificatie gemaakt te hebben
+	- een ontwerp gemaakt te hebben voor het programma
+
+Aan de specificatie van een object worden de volgende eisen gesteld: 
+	- specificeer het object in een interface
+	- vermeld voor alle methodes in de interface de PRE- en POST-conditie.
+	- specificeer het object door de eigenschappen ervan te beschrijven via
+		Elementen	(uit welke elementen bestaat het object?)
+		Structuur	(ondelinge samenhang tussen de elementen)
+		Domein		(welke waarden zijn toegestaan?)
+
+Gebruik javadoc voor het specificeren van Elementen, Structuur en Domein van 
+ieder ADT en het beschrijven van de Pre- en POST-conditie van iedere methode. 
+Bij methodes die een Exception gooien is het de bedoeling om met 
+"@throws Exception" te beschrijven in welk geval een Exception gegooid wordt. 
+Het geval indien er geen  Exception gegooid wordt, wordt beschreven bij de 
+postconditie.
+
+Gebruik het commando /usr/prac/ds/ds_javadoc om de documentatie te genereren.
+De documentatie wordt door javadoc in de file index.html gezet. De documentatie
+kan vervolgens met een browser worden bekeken en afgedrukt.
+
+Het commando ds_javadoc is het standaard commando javadoc met daaraan 
+toegevoegd de tags
+
+	@elementen
+	@structuur
+	@domein
+	@constructor
+	@preconditie
+	@postconditie
+
