@@ -35,7 +35,12 @@ class testProg {
 		i.append('c');
 		v(v2,i);
 		try {
-			out.printf("%s\n", v1.symmetrischVerschil(v2));
+			out.printf("Verzameling 1: %s\n", v1);
+			out.printf("Verzameling 2: %s\n", v2);
+			out.printf("Verschil     : %s\n", v1.verschil(v2));
+			out.printf("Doorsnede    : %s\n", v1.doorsnede(v2));
+			out.printf("Vereniging   : %s\n", v1.vereniging(v2));
+			out.printf("Symmetrisch  : %s\n", v1.symmetrischVerschil(v2));
 		} catch (Exception e) {
 			throw new Error();
 		}
