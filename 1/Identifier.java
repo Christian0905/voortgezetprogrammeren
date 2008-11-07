@@ -36,7 +36,7 @@ class Identifier {
 		if (length()!=obj.length()) {
 			return false;
 		}
-		for(int i=0; i<=length(); i++) {
+		for(int i=0; i<length(); i++) {
 			if(identifier.charAt(i) != obj.charAt(i)) {
 				return false;
 			}

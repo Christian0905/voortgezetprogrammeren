@@ -19,14 +19,17 @@ class IdentifierVerzameling {
 	}
 
 	public void init() {
-		//identifierArray = new Identifier[MAX_AANTAL_ELEMENTEN];
 		aantalElementen = 0;
 	}
 
 	public void voegToe(Identifier element) throws Exception {
 		if (!isAanwezig(element)) {
-			identifierArray[aantalElementen] = new Identifier(element);
-			aantalElementen += 1;
+			if (aantalElementen < MAX_AANTAL_ELEMENTEN) {
+				identifierArray[aantalElementen] = new Identifier(element);
+				aantalElementen += 1;
+			} else {
+				throw new Exception("IdentifierVerzameling is vol");
+			}
 		}
 	}
 
@@ -76,7 +79,7 @@ class IdentifierVerzameling {
 		IdentifierVerzameling resultaat = new IdentifierVerzameling();
 		for (int i = 0; i<aantalElementen; i++) {
 			if (!input.isAanwezig(identifierArray[i])) {
-				resultaat.voegToe(new Identifier(identifierArray[i]));
+				resultaat.voegToe(identifierArray[i]);
 			}
 		}
 		return resultaat;
@@ -86,7 +89,7 @@ class IdentifierVerzameling {
 		IdentifierVerzameling resultaat = new IdentifierVerzameling();
 		for (int i = 0; i<aantalElementen; i++) {
 			if (input.isAanwezig(identifierArray[i])) {
-				resultaat.voegToe(new Identifier(identifierArray[i]));
+				resultaat.voegToe(identifierArray[i]);
 			}
 		}
 		return resultaat;
@@ -95,13 +98,12 @@ class IdentifierVerzameling {
 	public IdentifierVerzameling vereniging(IdentifierVerzameling input) throws Exception {
 		IdentifierVerzameling resultaat = new IdentifierVerzameling(this);
 		for (int i = 0; i<input.aantalElementen; i++) {
-			resultaat.voegToe(new Identifier(identifierArray[i]));
+			resultaat.voegToe(input.identifierArray[i]);
 		}
 		return resultaat;
 	}
 
-	IdentifierVerzameling symmetrischVerschil(IdentifierVerzameling input)
-	throws Exception {
+	IdentifierVerzameling symmetrischVerschil(IdentifierVerzameling input) throws Exception {
 		return vereniging(input).verschil(doorsnede(input));
 	}
 }

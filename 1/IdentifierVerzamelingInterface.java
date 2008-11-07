@@ -32,7 +32,7 @@ public interface IdentifierVerzamelingInterface {
 
 	/** @preconditie  -
 		@postconditie Een kopie van element zit in de verzameling
-									  FAILURE er zijn meer dan 20 elementen
+						FAILURE er zijn meer dan 20 elementen
 		*/
 	void voegToe(Identifier element) throws Exception;
 
