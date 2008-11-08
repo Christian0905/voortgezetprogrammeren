@@ -6,6 +6,8 @@ class Opgave1 {
 
 	Scanner in;
 	PrintStream out;
+	
+	static final char NEW_LINE = '\r'; // '\r' voor Windows, '\n' voor Unix
 
 	Opgave1() {
 		in = new Scanner(System.in);
@@ -22,8 +24,8 @@ class Opgave1 {
 
 	boolean leesVerzamelingen(IdentifierVerzameling eersteVerzameling, IdentifierVerzameling tweedeVerzameling) {
 		return
-		leesIdentifierVerzameling(eersteVerzameling, "Geef de eerste verzameling: ") &&
-		leesIdentifierVerzameling(tweedeVerzameling, "Geef de tweede verzameling: ");
+		leesIdentifierVerzameling(eersteVerzameling, "Geef eerste verzameling : ") &&
+		leesIdentifierVerzameling(tweedeVerzameling, "Geef tweede verzameling : ");
 	}
 
 	boolean leesIdentifierVerzameling(IdentifierVerzameling verzameling, String vraag) {
@@ -45,12 +47,16 @@ class Opgave1 {
 
 	boolean invoerCorrect(IdentifierVerzameling verzameling) {
 		in.useDelimiter("");
+		if (nextCharIs(in, NEW_LINE)) {
+			in.nextLine();
+			return false;
+		}
 		if (nextChar(in) != '{') {
 			return invoerFout("De '{' ontbreekt");
 		}
 		
 		skipSpaces(in);
-		if (!nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
+		if (!nextCharIs(in, '}') && !nextCharIs(in, NEW_LINE)) {
 			if (!leesIdentifiers(verzameling)) {
 				return false;
 			}
@@ -58,7 +64,7 @@ class Opgave1 {
 		skipSpaces(in);
 		
 		if (nextChar(in) == '}') {
-			if (nextChar(in) == '\r') {
+			if (nextChar(in) == NEW_LINE) {
 				in.nextLine();
 				return true;
 			} else {
@@ -72,34 +78,38 @@ class Opgave1 {
 	boolean leesIdentifiers(IdentifierVerzameling verzameling) {
 		Identifier identifier = new Identifier();
 		
-		while (!nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
-			if (nextCharIsLetter(in)) {
-				identifier.init(nextChar(in));
-				while (!nextCharIs(in, ' ') && !nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
-					if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
-						identifier.append(nextChar(in));
-					} else {
-						return invoerFout("Ongeldig teken in identifier.");
-					}
-				}
-				try {
-					verzameling.voegToe(identifier);
-				} catch (Exception e) {
-				}
-				skipSpaces(in);
-			} else {
+		while (!nextCharIs(in, '}') && !nextCharIs(in, NEW_LINE)) {
+			if (!nextCharIsLetter(in)) {
 				return invoerFout("Identifier begint niet met een letter.");
 			}
+			identifier.init(nextChar(in));
+			while (!nextCharIs(in, ' ') && !nextCharIs(in, '}') && !nextCharIs(in, NEW_LINE)) {
+				if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
+					identifier.append(nextChar(in));
+				} else {
+					return invoerFout("Ongeldig teken in identifier.");
+				}
+			}
+			try {
+				if (verzameling.aantalIdentifiers() < 10 || verzameling.isAanwezig(identifier)) {
+					verzameling.voegToe(identifier);
+				} else {
+					return invoerFout("Meer dan tien identifiers op de invoer.");
+				}
+			} catch (Exception e) {
+				return invoerFout(e.getMessage());
+			}
+			skipSpaces(in);
 		}
 		return true;
 	}
 
 	void verwerkEnPrintOperaties(IdentifierVerzameling eersteVerzameling, IdentifierVerzameling tweedeVerzameling) {
 		try {
-			out.printf("Verschil:    %s\n", eersteVerzameling.verschil(tweedeVerzameling));
-			out.printf("Doorsnede:   %s\n", eersteVerzameling.doorsnede(tweedeVerzameling));
-			out.printf("Vereniging:  %s\n", eersteVerzameling.vereniging(tweedeVerzameling));
-			out.printf("Symmetrisch: %s\n", eersteVerzameling.symmetrischVerschil(tweedeVerzameling));
+			out.printf("verschil   = %s\n", eersteVerzameling.verschil(tweedeVerzameling));
+			out.printf("doorsnede  = %s\n", eersteVerzameling.doorsnede(tweedeVerzameling));
+			out.printf("vereniging = %s\n", eersteVerzameling.vereniging(tweedeVerzameling));
+			out.printf("sym. vers. = %s\n", eersteVerzameling.symmetrischVerschil(tweedeVerzameling));
 		} catch (Exception e) {
 			out.printf("%s\n", e.getMessage());
 		}

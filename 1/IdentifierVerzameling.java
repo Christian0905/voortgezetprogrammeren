@@ -62,13 +62,12 @@ class IdentifierVerzameling {
 	}
 
 	public String toString() {
-		String identifierRegel = new String("{ ");
+		String identifierRegel = new String();
 		for (int i = 0; i < aantalElementen; i++) {
 			identifierRegel += identifierArray[i].toString();
 			identifierRegel += " ";
 		}
-		identifierRegel += "}";
-		return identifierRegel;
+		return identifierRegel.trim();
 	}
 
 	public int aantalIdentifiers() {
