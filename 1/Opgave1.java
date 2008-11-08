@@ -47,24 +47,24 @@ class Opgave1 {
 
 	boolean invoerCorrect(IdentifierVerzameling verzameling) {
 		in.useDelimiter("");
-		if (nextCharIs(in, NEW_LINE)) {
+		if (nextCharIs(NEW_LINE)) {
 			in.nextLine();
 			return false;
 		}
-		if (nextChar(in) != '{') {
+		if (nextChar() != '{') {
 			return invoerFout("De '{' ontbreekt");
 		}
 		
-		skipSpaces(in);
-		if (!nextCharIs(in, '}') && !nextCharIs(in, NEW_LINE)) {
+		skipSpaces();
+		if (!nextCharIs('}') && !nextCharIs(NEW_LINE)) {
 			if (!leesIdentifiers(verzameling)) {
 				return false;
 			}
 		}
-		skipSpaces(in);
+		skipSpaces();
 		
-		if (nextChar(in) == '}') {
-			if (nextChar(in) == NEW_LINE) {
+		if (nextChar() == '}') {
+			if (nextChar() == NEW_LINE) {
 				in.nextLine();
 				return true;
 			} else {
@@ -78,14 +78,14 @@ class Opgave1 {
 	boolean leesIdentifiers(IdentifierVerzameling verzameling) {
 		Identifier identifier = new Identifier();
 		
-		while (!nextCharIs(in, '}') && !nextCharIs(in, NEW_LINE)) {
-			if (!nextCharIsLetter(in)) {
+		while (!nextCharIs('}') && !nextCharIs(NEW_LINE)) {
+			if (!nextCharIsLetter()) {
 				return invoerFout("Identifier begint niet met een letter.");
 			}
-			identifier.init(nextChar(in));
-			while (!nextCharIs(in, ' ') && !nextCharIs(in, '}') && !nextCharIs(in, NEW_LINE)) {
-				if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
-					identifier.append(nextChar(in));
+			identifier.init(nextChar());
+			while (!nextCharIs(' ') && !nextCharIs('}') && !nextCharIs(NEW_LINE)) {
+				if (nextCharIsLetter() || nextCharIsDigit()) {
+					identifier.append(nextChar());
 				} else {
 					return invoerFout("Ongeldig teken in identifier.");
 				}
@@ -99,7 +99,7 @@ class Opgave1 {
 			} catch (Exception e) {
 				return invoerFout(e.getMessage());
 			}
-			skipSpaces(in);
+			skipSpaces();
 		}
 		return true;
 	}
@@ -119,25 +119,23 @@ class Opgave1 {
 		new Opgave1().start();
 	}
 
-	// BEGIN toegestane hulpmethodes
-	char nextChar (Scanner in) {
+	char nextChar() {
 		return in.next().charAt(0);
 	}
 
-	boolean nextCharIs (Scanner in, char c) {
+	boolean nextCharIs(char c) {
 	    return in.hasNext(Pattern.quote(c+""));
 	}
 
-	boolean nextCharIsDigit (Scanner in) {
+	boolean nextCharIsDigit() {
 	    return in.hasNext("[0-9]");
 	}
 
-	boolean nextCharIsLetter (Scanner in) {
+	boolean nextCharIsLetter() {
 	    return in.hasNext("[a-zA-Z]");
 	}
-	// EIND toegestande hulpmethodes
 	
-	void skipSpaces(Scanner in) {
+	void skipSpaces() {
 		in.skip("\\s*");
 	}
 }
