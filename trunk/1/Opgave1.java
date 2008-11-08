@@ -48,9 +48,13 @@ class Opgave1 {
 		if (nextChar(in) != '{') {
 			return invoerFout("De '{' ontbreekt");
 		}
+		
 		skipSpaces(in);
-		leesIdentifiers(verzameling);
+		if (!nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
+			leesIdentifiers(verzameling);
+		}
 		skipSpaces(in);
+		
 		if (nextChar(in) == '}') {
 			if (nextChar(in) == '\r') {
 				in.nextLine();
@@ -66,10 +70,26 @@ class Opgave1 {
 	void leesIdentifiers(IdentifierVerzameling verzameling) {
 		Identifier identifier = new Identifier();
 		
-		Pattern p = Pattern.compile(" ");
-		String[] items = p.split(INPUT);
-		for (int i = 0; i < items.length; i++) {
-			verzameling.voegToe(identifier);
+		while (!nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
+			if (nextCharIsLetter(in)) {
+				identifier.init(nextChar(in));
+				while (!nextCharIs(in, ' ') && !nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
+					if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
+						identifier.append(nextChar(in));
+					} else {
+						invoerFout("Ongeldig teken in identifier.");
+						return;
+					}
+				}
+				try {
+					verzameling.voegToe(identifier);
+				} catch (Exception e) {
+				}
+				skipSpaces(in);
+			} else {
+				invoerFout("Identifier begint niet met een letter.");
+				return;
+			}
 		}
 	}
 
