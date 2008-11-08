@@ -1,4 +1,4 @@
-class Identifier {
+class Identifier implements IdentifierInterface {
 
 	private StringBuffer identifier;
 

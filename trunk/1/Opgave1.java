@@ -7,7 +7,7 @@ class Opgave1 {
 	Scanner in;
 	PrintStream out;
 
-	static final char NEW_LINE = '\r'; // '\r' voor Windows, '\n' voor Unix
+	static final char NEW_LINE = '\n'; // '\r' voor Windows, '\n' voor Unix
 
 	Opgave1() {
 		in = new Scanner(System.in);

@@ -1,4 +1,4 @@
-class IdentifierVerzameling {
+class IdentifierVerzameling implements IdentifierVerzamelingInterface {
 
 	private static final int MAX_AANTAL_ELEMENTEN = 20;
 
@@ -74,21 +74,25 @@ class IdentifierVerzameling {
 		return aantalElementen;
 	}
 
-	public IdentifierVerzameling verschil(IdentifierVerzameling input) throws Exception {
+	public IdentifierVerzameling verschil(IdentifierVerzameling input) {
 		IdentifierVerzameling resultaat = new IdentifierVerzameling();
 		for (int i = 0; i<aantalElementen; i++) {
 			if (!input.isAanwezig(identifierArray[i])) {
-				resultaat.voegToe(identifierArray[i]);
+				try {
+					resultaat.voegToe(identifierArray[i]);
+				} catch (Exception e) {}
 			}
 		}
 		return resultaat;
 	}
 
-	public IdentifierVerzameling doorsnede(IdentifierVerzameling input) throws Exception {
+	public IdentifierVerzameling doorsnede(IdentifierVerzameling input) {
 		IdentifierVerzameling resultaat = new IdentifierVerzameling();
 		for (int i = 0; i<aantalElementen; i++) {
 			if (input.isAanwezig(identifierArray[i])) {
-				resultaat.voegToe(identifierArray[i]);
+				try {
+					resultaat.voegToe(identifierArray[i]);
+				} catch (Exception e) {}
 			}
 		}
 		return resultaat;
@@ -102,7 +106,7 @@ class IdentifierVerzameling {
 		return resultaat;
 	}
 
-	IdentifierVerzameling symmetrischVerschil(IdentifierVerzameling input) throws Exception {
+	public IdentifierVerzameling symmetrischVerschil(IdentifierVerzameling input) throws Exception {
 		return vereniging(input).verschil(doorsnede(input));
 	}
 }

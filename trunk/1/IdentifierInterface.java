@@ -48,4 +48,3 @@ public interface IdentifierInterface {
 		*/
 	boolean equals(Identifier obj);
 }
-
