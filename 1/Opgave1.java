@@ -6,7 +6,7 @@ class Opgave1 {
 
 	Scanner in;
 	PrintStream out;
-	
+
 	static final char NEW_LINE = '\r'; // '\r' voor Windows, '\n' voor Unix
 
 	Opgave1() {
@@ -54,7 +54,7 @@ class Opgave1 {
 		if (nextChar() != '{') {
 			return invoerFout("De '{' ontbreekt");
 		}
-		
+
 		skipSpaces();
 		if (!nextCharIs('}') && !nextCharIs(NEW_LINE)) {
 			if (!leesIdentifiers(verzameling)) {
@@ -62,7 +62,7 @@ class Opgave1 {
 			}
 		}
 		skipSpaces();
-		
+
 		if (nextChar() == '}') {
 			if (nextChar() == NEW_LINE) {
 				in.nextLine();
@@ -77,29 +77,30 @@ class Opgave1 {
 
 	boolean leesIdentifiers(IdentifierVerzameling verzameling) {
 		Identifier identifier = new Identifier();
-		
+
 		while (!nextCharIs('}') && !nextCharIs(NEW_LINE)) {
-			if (!nextCharIsLetter()) {
+			if (nextCharIsLetter()) {
+				identifier.init(nextChar());
+				while (!nextCharIs(' ') && !nextCharIs('}') && !nextCharIs(NEW_LINE)) {
+					if (nextCharIsLetter() || nextCharIsDigit()) {
+						identifier.append(nextChar());
+					} else {
+						return invoerFout("Ongeldig teken in identifier.");
+					}
+				}
+				try {
+					if (verzameling.aantalIdentifiers() < 10 || verzameling.isAanwezig(identifier)) {
+						verzameling.voegToe(identifier);
+					} else {
+						return invoerFout("Meer dan tien identifiers op de invoer.");
+					}
+				} catch (Exception e) {
+					return invoerFout(e.getMessage());
+				}
+				skipSpaces();
+			} else {
 				return invoerFout("Identifier begint niet met een letter.");
 			}
-			identifier.init(nextChar());
-			while (!nextCharIs(' ') && !nextCharIs('}') && !nextCharIs(NEW_LINE)) {
-				if (nextCharIsLetter() || nextCharIsDigit()) {
-					identifier.append(nextChar());
-				} else {
-					return invoerFout("Ongeldig teken in identifier.");
-				}
-			}
-			try {
-				if (verzameling.aantalIdentifiers() < 10 || verzameling.isAanwezig(identifier)) {
-					verzameling.voegToe(identifier);
-				} else {
-					return invoerFout("Meer dan tien identifiers op de invoer.");
-				}
-			} catch (Exception e) {
-				return invoerFout(e.getMessage());
-			}
-			skipSpaces();
 		}
 		return true;
 	}
@@ -134,8 +135,8 @@ class Opgave1 {
 	boolean nextCharIsLetter() {
 	    return in.hasNext("[a-zA-Z]");
 	}
-	
+
 	void skipSpaces() {
-		in.skip("\\s*");
+		in.skip("[ ]*");
 	}
 }
