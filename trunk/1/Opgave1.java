@@ -51,7 +51,9 @@ class Opgave1 {
 		
 		skipSpaces(in);
 		if (!nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
-			leesIdentifiers(verzameling);
+			if (!leesIdentifiers(verzameling)) {
+				return false;
+			}
 		}
 		skipSpaces(in);
 		
@@ -67,7 +69,7 @@ class Opgave1 {
 		}
 	}
 
-	void leesIdentifiers(IdentifierVerzameling verzameling) {
+	boolean leesIdentifiers(IdentifierVerzameling verzameling) {
 		Identifier identifier = new Identifier();
 		
 		while (!nextCharIs(in, '}') && !nextCharIs(in, '\r')) {
@@ -77,8 +79,7 @@ class Opgave1 {
 					if (nextCharIsLetter(in) || nextCharIsDigit(in)) {
 						identifier.append(nextChar(in));
 					} else {
-						invoerFout("Ongeldig teken in identifier.");
-						return;
+						return invoerFout("Ongeldig teken in identifier.");
 					}
 				}
 				try {
@@ -87,10 +88,10 @@ class Opgave1 {
 				}
 				skipSpaces(in);
 			} else {
-				invoerFout("Identifier begint niet met een letter.");
-				return;
+				return invoerFout("Identifier begint niet met een letter.");
 			}
 		}
+		return true;
 	}
 
 	void verwerkEnPrintOperaties(IdentifierVerzameling eersteVerzameling, IdentifierVerzameling tweedeVerzameling) {
