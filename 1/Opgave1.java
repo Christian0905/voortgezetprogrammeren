@@ -15,6 +15,8 @@ class Opgave1 {
 	}
 
 	public void start() {
+		in.useDelimiter("");
+		
 		IdentifierVerzameling eersteVerzameling = new IdentifierVerzameling();
 		IdentifierVerzameling tweedeVerzameling = new IdentifierVerzameling();
 		while(leesVerzamelingen(eersteVerzameling, tweedeVerzameling)) {
@@ -46,7 +48,21 @@ class Opgave1 {
 	}
 
 	boolean invoerCorrect(IdentifierVerzameling verzameling) {
-		in.useDelimiter("");
+		if (!leesAccoladeOpenen()) {
+			return false;
+		}
+		if (!eindeVerzameling()) {
+			if (!leesAlleIdentifiers(verzameling)) {
+				return false;
+			}
+		}
+		if (!leesAccoladeSluiten()) {
+			return false;
+		}
+		return true;
+	}
+	
+	boolean leesAccoladeOpenen() {
 		if (nextCharIs(NEW_LINE)) {
 			in.nextLine();
 			return false;
@@ -54,15 +70,12 @@ class Opgave1 {
 		if (nextChar() != '{') {
 			return invoerFout("De '{' ontbreekt");
 		}
-
 		skipSpaces();
-		if (!nextCharIs('}') && !nextCharIs(NEW_LINE)) {
-			if (!leesIdentifiers(verzameling)) {
-				return false;
-			}
-		}
-		skipSpaces();
+		return true;
+	}
 
+	boolean leesAccoladeSluiten() {
+		skipSpaces();
 		if (nextChar() == '}') {
 			if (nextChar() == NEW_LINE) {
 				in.nextLine();
@@ -75,27 +88,16 @@ class Opgave1 {
 		}
 	}
 
-	boolean leesIdentifiers(IdentifierVerzameling verzameling) {
+	boolean leesAlleIdentifiers(IdentifierVerzameling verzameling) {
 		Identifier identifier = new Identifier();
 
-		while (!nextCharIs('}') && !nextCharIs(NEW_LINE)) {
+		while (!eindeVerzameling()) {
 			if (nextCharIsLetter()) {
-				identifier.init(nextChar());
-				while (!nextCharIs(' ') && !nextCharIs('}') && !nextCharIs(NEW_LINE)) {
-					if (nextCharIsLetter() || nextCharIsDigit()) {
-						identifier.append(nextChar());
-					} else {
-						return invoerFout("Ongeldig teken in identifier.");
-					}
+				if(!leesIdentifier(identifier)) {
+					return false;
 				}
-				try {
-					if (verzameling.aantalIdentifiers() < 10 || verzameling.isAanwezig(identifier)) {
-						verzameling.voegToe(identifier);
-					} else {
-						return invoerFout("Meer dan tien identifiers op de invoer.");
-					}
-				} catch (Exception e) {
-					return invoerFout(e.getMessage());
+				if(!voegToeAanVerzameling(verzameling, identifier)) {
+					return false;
 				}
 				skipSpaces();
 			} else {
@@ -103,6 +105,35 @@ class Opgave1 {
 			}
 		}
 		return true;
+	}
+
+	boolean leesIdentifier(Identifier identifier) {
+		identifier.init(nextChar());
+		while (!nextCharIs(' ') && !eindeVerzameling()) {
+			if (nextCharIsLetter() || nextCharIsDigit()) {
+				identifier.append(nextChar());
+			} else {
+				return invoerFout("Ongeldig teken in identifier.");
+			}
+		}
+		return true;
+	}
+
+	boolean voegToeAanVerzameling(IdentifierVerzameling verzameling, Identifier identifier) {
+		try {
+			if (verzameling.aantalIdentifiers() < 10 || verzameling.isAanwezig(identifier)) {
+				verzameling.voegToe(identifier);
+			} else {
+				return invoerFout("Meer dan tien identifiers op de invoer.");
+			}
+		} catch (Exception e) {
+			return invoerFout(e.getMessage());
+		}
+		return true;
+	}
+
+	boolean eindeVerzameling() {
+		return nextCharIs('}') || nextCharIs(NEW_LINE);
 	}
 
 	void verwerkEnPrintOperaties(IdentifierVerzameling eersteVerzameling, IdentifierVerzameling tweedeVerzameling) {
@@ -114,10 +145,6 @@ class Opgave1 {
 		} catch (Exception e) {
 			out.printf("%s\n", e.getMessage());
 		}
-	}
-
-	public static void main(String[] srgv) {
-		new Opgave1().start();
 	}
 
 	char nextChar() {
@@ -138,5 +165,9 @@ class Opgave1 {
 
 	void skipSpaces() {
 		in.skip("[ ]*");
+	}
+	
+	public static void main(String[] srgv) {
+		new Opgave1().start();
 	}
 }
