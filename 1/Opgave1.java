@@ -16,12 +16,13 @@ class Opgave1 {
 
 	public void start() {
 		in.useDelimiter("");
-		
+
 		IdentifierVerzameling eersteVerzameling = new IdentifierVerzameling();
 		IdentifierVerzameling tweedeVerzameling = new IdentifierVerzameling();
 		while(leesVerzamelingen(eersteVerzameling, tweedeVerzameling)) {
 			verwerkEnPrintOperaties(eersteVerzameling, tweedeVerzameling);
 		}
+		out.printf("\n");
 	}
 
 	boolean leesVerzamelingen(IdentifierVerzameling eersteVerzameling, IdentifierVerzameling tweedeVerzameling) {
@@ -76,9 +77,9 @@ class Opgave1 {
 
 	boolean leesAccoladeSluiten() {
 		skipSpaces();
-		if (nextChar() == '}') {
+		if (nextCharIs('}')) {
+			nextChar();
 			if (nextChar() == NEW_LINE) {
-				in.nextLine();
 				return true;
 			} else {
 				return invoerFout("Invoer gegeven na de '}'.");
