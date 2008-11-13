@@ -1,33 +1,36 @@
-interface Lijst<E extends Data> extends Cloneable {
+class Lijst<E extends Data> implements Cloneable {
 	
-	private E lijstElement;
+	public Knoop first;
+	public Knoop last;
+	public Knoop current;
 	
 	public Lijst() {
-		lijstElement = new Lijst<E>();
 		init();
 	}
 	
-	public Lijst<E> init () {
-		lijstElement = null;
-		return lijstElement;
+	public Lijst<E> init() {
+		first = null;
+		last = null;
+		current = null;
+		return this;
 	}
 	
 	public boolean isEmpty() {
-		return(lijstElement == null);
+		return(current == null);
 	}
 	
 	public int size() {
+		return 0;
 	}
 	
 	public int aantalKnopen(Knoop knoop) {
 		if (knoop == null) {
 			return 0;
 		}
-		return 1 + aantalKnopen(knoop.next);
+		return 1;// + aantalKnopen(knoop.next);
 	}
 	
-	public Lijst<E> insert(E d) {
-		
-		return 
-
+	/*public Lijst<E> insert(E d) {	
+		return
+	}*/
 }
