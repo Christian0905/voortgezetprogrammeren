@@ -1,0 +1,3 @@
+class Verzameling implements VerzamelingInterface {
+	
+}
