@@ -81,7 +81,66 @@ class Lijst<E extends Data> implements Cloneable {
 	}
 	
 	public boolean find(E d) {
+		Knoop k = first;
+		for (int i = 0; i<aantalKnopen; i++) {
+			k = k.next;
+			if(d.compareTo(k.data) == 0) {
+				current = k;
+				return true;
+			}
+		}
+		//hier moet nog veel zooi
+		return false;
+	}
+
+	public boolean setFirst() {
+		if (isEmpty()) {
+			return false;
+		} else {
+			current = first;
+			return true;
+		}
 	}
 		
+	public boolean setLast() {
+		if (isEmpty()) {
+			return false;
+		} else {
+			current = last;
+			return true;
+		}
+	}
+	
+	public boolean getNext() {
+		if (isEmpty() || current.data.compareTo(last.data) == 0) {
+			return false;
+		} else {
+			current = current.next;
+			return true;
+		}
+	}
+	
+	public boolean getPrior() {
+		if (isEmpty() || current.data.compareTo(first.data) == 0) {
+			return false;
+			} else {
+				current = current.prior;
+				return true;
+		}
+	}
+	
+	public Lijst<E> clone() {
+		Lijst<E> kopie;
+		try {
+			kopie = (Lijst<E>) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Onmogelijk! instantie Lijst is niet Cloneable");
+		}
 		
+		kopie.first = first == null?null:(Knoop)first.clone();
+		kopie.last = last == null?null:(Knoop)last.clone();
+		kopie.current = current == null?null:(Knoop)current.clone();
+		kopie.aantalKnopen = aantalKnopen; //???
+		return kopie;
+	}
 }		
