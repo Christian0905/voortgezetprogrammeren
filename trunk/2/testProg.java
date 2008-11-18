@@ -15,7 +15,7 @@ class testProg {
 	}
 
 	public void start() {
-
+	lijstje.insert(
 	}
 
 	public static void main(String argv[]) {

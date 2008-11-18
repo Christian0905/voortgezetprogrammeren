@@ -29,25 +29,24 @@ class Lijst<E extends Data> implements Cloneable {
 			aantalKnopen += 1;
 			return this;
 		}
+		
 		Knoop k = first;
 		while(d.compareTo(k.data) > 0) {
-			if (k.next != null) {   // laatste knoop
-				k = k.next;
-			} else {
-				last = k.next = new Knoop(d, k, null); //toevoegen als laatste
-				aantalKnopen += 1;
-				return this;
-			}
+			k = k.next;
 		}
-		if (k.prior == null) { //eerste knoop
-			first = k.prior = new Knoop(d, null, k);  // toevoegen voor de eerste
-			aantalKnopen += 1;
-			return this;
-		} else {
-			k.prior = k.prior.next = new Knoop(d, k.prior, k);   // toevoegen in het midden
+		if (k == null) { //laatste knoop
+			last.next = new Knoop(d, last, null);
+			last = last.next;
 			aantalKnopen += 1;
 			return this;
 		}
+		k.prior = new Knoop(d, k.prior, k);
+		k.prior.prior.next = k.prior;
+		if (k == first) {
+			first = k.prior;
+		}
+		aantalKnopen += 1;
+		return this;
 	}
 
 	public E retreive() {
@@ -57,18 +56,18 @@ class Lijst<E extends Data> implements Cloneable {
 	}
 	
 	public Lijst<E> remove() {
-		if (current.prior == null) { // current is eerste object
-			current.next = current.next.prior = null;
-			first = current = current.next;
-			aantalKnopen -= 1;
-			return this;
-		} else if (aantalKnopen == 1) { // laatste knoop verwijderen
+		if (aantalKnopen == 1) { // laatste knoop verwijderen
 			first = last = current = null;
 			aantalKnopen = 0;
 			return this;
-		} else if (current.next == null) { // current is het laatset object
-			current.prior.next = null;
+		} else if (current == first) {
+			first = current = current.next;
+			current.prior = null;
+			aantalKnopen -= 1;
+			return this;
+		} else if (current == last) {
 			last = current = current.prior;
+			current.next = null;
 			aantalKnopen -= 1;
 			return this;
 		} else {
@@ -96,37 +95,33 @@ class Lijst<E extends Data> implements Cloneable {
 	public boolean setFirst() {
 		if (isEmpty()) {
 			return false;
-		} else {
-			current = first;
-			return true;
 		}
+		current = first;
+		return true;
 	}
 		
 	public boolean setLast() {
 		if (isEmpty()) {
 			return false;
-		} else {
-			current = last;
-			return true;
 		}
+		current = last;
+		return true;
 	}
 	
 	public boolean getNext() {
-		if (isEmpty() || current.data.compareTo(last.data) == 0) {
+		if (isEmpty() || current == last) {
 			return false;
-		} else {
-			current = current.next;
-			return true;
 		}
+		current = current.next;
+		return true;
 	}
 	
 	public boolean getPrior() {
-		if (isEmpty() || current.data.compareTo(first.data) == 0) {
+		if (isEmpty() || current == first) {
 			return false;
-			} else {
-				current = current.prior;
-				return true;
 		}
+		current = current.prior;
+		return true;
 	}
 	
 	public Lijst<E> clone() {
@@ -143,4 +138,4 @@ class Lijst<E extends Data> implements Cloneable {
 		kopie.aantalKnopen = aantalKnopen; //???
 		return kopie;
 	}
-}		
+}
