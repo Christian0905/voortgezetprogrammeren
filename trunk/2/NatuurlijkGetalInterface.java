@@ -16,7 +16,7 @@
 	Er is een nieuw NatuurlijkGetal object gemaakt. De inhoud van het nieuwe NatuurlijkGetal-object is "0".
 	*/
 
-public interface NatuurlijkGetalInterface extends Comparable, Clonable {
+public interface NatuurlijkGetalInterface extends Comparable, Cloneable {
 
 	/** @preconditie	-
 		@postconditie	De inhoud van het huidige object is 0.
@@ -49,10 +49,10 @@ public interface NatuurlijkGetalInterface extends Comparable, Clonable {
 						Als de inhoud van this gelijk is aan de inhoud van obj: het getal 0 is geretourneerd.<br />
 						Als de inhoud van this numeriek na de inhoud van obj wordt gesorteerd: een positief getal is geretourneerd.
 		*/
-	int compareTo(NatuurlijkGetal obj);
+	int compareTo(Object obj);
 
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
 		*/
-	NatuurlijkGetal clone();
+	Object clone();
 }
