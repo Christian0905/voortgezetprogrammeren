@@ -1,4 +1,4 @@
-class Lijst<E extends Data> implements Cloneable {
+class Lijst<E extends Data> implements LijstInterface {
 	
 	public Knoop first, last, current;
 	public int aantalKnopen;
@@ -80,8 +80,7 @@ class Lijst<E extends Data> implements Cloneable {
 	}
 	
 	public boolean find(E d) {
-		Knoop k = first;
-		for (int i = 0; i<aantalKnopen; i++) {
+		for (Knoop k = first; k != null; k = k.next) {
 			k = k.next;
 			if(d.compareTo(k.data) == 0) {
 				current = k;
