@@ -1,0 +1,3 @@
+class Tabel implements TabelInterface {
+	
+}

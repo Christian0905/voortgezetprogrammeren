@@ -4,16 +4,16 @@
  * @author	Jan van der Lugt
  */
  
-/** @elementen	Cijfers van het type int
+/** @elementen	Cijfers van het type char
 	@structuur	Lineair
 	@domein		Alle natuurlijke getallen
 
 	@constructor
-	<h3>Identifier()</h3>
+	<h3>NatuurlijkGetal()</h3>
 	<b>PRE</b><br>
 	-<br>
 	<b>POST</b><br>
-	Er is een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is "0".
+	Er is een nieuw NatuurlijkGetal object gemaakt. De inhoud van het nieuwe NatuurlijkGetal-object is "0".
 	*/
 
 public interface NatuurlijkGetalInterface extends Comparable, Clonable {
@@ -24,7 +24,7 @@ public interface NatuurlijkGetalInterface extends Comparable, Clonable {
 	void init(char c);
 
 	/** @preconditie	-
-		@postconditie	Het cijfer c is achteraan toegevoegd aan de Identifier.
+		@postconditie	Het cijfer c is achteraan toegevoegd aan de NatuurlijkGetal.
 		*/
 	void append(char c);
 
@@ -34,7 +34,7 @@ public interface NatuurlijkGetalInterface extends Comparable, Clonable {
 	char charAt(int i);
 
 	/** @preconditie	-
-		@postconditie	Het aantal characters van de Identifier is geretourneerd.
+		@postconditie	Het aantal characters van de NatuurlijkGetal is geretourneerd.
 		*/
 	int length();
 
@@ -54,5 +54,5 @@ public interface NatuurlijkGetalInterface extends Comparable, Clonable {
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
 		*/
-	Identifier clone();
+	NatuurlijkGetal clone();
 }
