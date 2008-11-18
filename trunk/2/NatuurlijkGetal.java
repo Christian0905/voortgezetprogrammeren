@@ -1,0 +1,3 @@
+class NatuurlijkGetal implements NatuurlijkGetalInterface {
+	
+}

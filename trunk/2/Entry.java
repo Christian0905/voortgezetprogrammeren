@@ -1,0 +1,3 @@
+class Entry implements EntryInterface {
+	
+}
