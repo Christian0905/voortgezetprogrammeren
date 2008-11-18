@@ -6,7 +6,7 @@
  
 /** @elementen	Cijfers van het type char
 	@structuur	Lineair
-	@domein		Alle natuurlijke getallen
+	@domein		Alle rijen van cijfers waarbij de rijen niet met 0 beginnen, tenzij 0 het enige cijfer in de rij is.
 
 	@constructor
 	<h3>NatuurlijkGetal()</h3>
@@ -18,13 +18,13 @@
 
 public interface NatuurlijkGetalInterface extends Comparable, Clonable {
 
-	/** @preconditie	c is een cijfer.
-		@postconditie	De inhoud van het NatuurlijkGetal-object is precies het cijfer c.
+	/** @preconditie	-
+		@postconditie	De inhoud van het huidige object is 0.
 		*/
-	void init(char c);
+	void init();
 
 	/** @preconditie	-
-		@postconditie	Het cijfer c is achteraan toegevoegd aan de NatuurlijkGetal.
+		@postconditie	Als de inhoud-PRE 0 is, is de inhoud-POST het cijfer c, tenzij c 0 is, dan is inhoud-POST 0. In andere gevallen is cijfer c achteraan inhoud-PRE toegevoegd.
 		*/
 	void append(char c);
 
@@ -45,9 +45,9 @@ public interface NatuurlijkGetalInterface extends Comparable, Clonable {
 	boolean equals(NatuurlijkGetal obj);
 
 	/** @preconditie	-
-		@postconditie	Als de inhoud van this < de inhoud van obj: een negatief getal is geretourneerd.<br />
-						Als de inhoud van this = de inhoud van obj: het getal 0 is geretourneerd.<br />
-						Als de inhoud van this > de inhoud van obj: een positief getal is geretourneerd.
+		@postconditie	Als de inhoud van this numeriek voor de inhoud van obj wordt gesorteerd: een negatief getal is geretourneerd.<br />
+						Als de inhoud van this gelijk is aan de inhoud van obj: het getal 0 is geretourneerd.<br />
+						Als de inhoud van this numeriek na de inhoud van obj wordt gesorteerd: een positief getal is geretourneerd.
 		*/
 	int compareTo(NatuurlijkGetal obj);
 
