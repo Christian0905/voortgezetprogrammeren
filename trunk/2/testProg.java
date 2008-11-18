@@ -4,18 +4,20 @@ import java.util.Scanner;
 class testProg {
 	Scanner in;
 	PrintStream out;
+	Lijst lijstje;
 	
-	Lijst<String> lijstje;
 
 	testProg() {
 		in = new Scanner(System.in);
 		out = new PrintStream(System.out);
 		
-		Lijst<String> lijstje = new Lijst<String>();
+		lijstje = new Lijst();
 	}
 
 	public void start() {
-	lijstje.insert(
+	lijstje.init();
+	lijstje.insert(1);
+	out.printf("Verzameling 1: %s\n", lijstje.toString());
 	}
 
 	public static void main(String argv[]) {

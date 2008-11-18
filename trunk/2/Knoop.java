@@ -30,5 +30,9 @@ class Knoop implements Cloneable {
 
 	    return kopie;
     }
+    
+    public String toString() {
+    	return data.toString();
+    } 
 
 }

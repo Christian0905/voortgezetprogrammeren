@@ -1,0 +1,32 @@
+#/bin/sh
+
+
+if [ `uname` = Linux ]
+then
+	JAVA_BIN_PATH='/usr/local/jdk1.5.0_09/bin'
+elif [ `uname` = SunOS ]
+then
+	JAVA_BIN_PATH='/usr/local/java/jdk1.5.0/bin'
+else
+	os=`uname`
+	echo "Sorry, operating sytem $os niet ondersteund."
+	exit 1
+fi
+ 
+
+$JAVA_BIN_PATH/javadoc   \
+        -nodeprecated                       \
+        -nodeprecatedlist                   \
+        -quiet                              \
+        -author                             \
+        -package                            \
+        -tag elementen:a:"Elementen"        \
+        -tag structuur:a:"Structuur"        \
+        -tag domein:a:"Domein"              \
+        -tag constructor:a:"Constructor"    \
+        -tag param                          \
+        -tag preconditie:a:"PRE-conditie"   \
+        -tag postconditie:a:"POST-conditie" \
+        -tag throws                         \
+        $*
+

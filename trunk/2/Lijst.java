@@ -138,4 +138,13 @@ class Lijst<E extends Data> implements Cloneable {
 		kopie.aantalKnopen = aantalKnopen; //???
 		return kopie;
 	}
+	
+	public String toString() {
+		String lijstRegel = new String();
+		for (Knoop k = first; k != null; k = k.next) {
+			lijstRegel += k.toString();
+			lijstRegel += " ";
+		}
+		return lijstRegel;
+	}
 }
