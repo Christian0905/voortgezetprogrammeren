@@ -58,14 +58,13 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 	}
 	
 	public Object clone() {
-		Object kopie;
+		NatuurlijkGetal kopie;
 		try {
-			kopie = super.clone();
+			kopie = (NatuurlijkGetal) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new Error("Deze class is niet cloneable.");
 		}
-		NatuurlijkGetal ng = (NatuurlijkGetal)kopie;
-		ng.elementen = new StringBuffer(elementen);
+		kopie.elementen = new StringBuffer(elementen);
 		return kopie;
 	}
 }
