@@ -16,7 +16,7 @@
 	Er is een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is "a".
 	*/
 
-public interface IdentifierInterface extends Comparable, Cloneable {
+public interface IdentifierInterface extends Data {
 
 	/** @preconditie	c is een letter.
 		@postconditie	De inhoud van het Identifier-object is precies de letter c
@@ -49,10 +49,10 @@ public interface IdentifierInterface extends Comparable, Cloneable {
 						Als het de inhoud van this gelijk is aan de inhoud van obj: het getal 0 is geretourneerd.<br />
 						Als het de inhoud van this lexicografisch na de inhoud van obj wordt gesorteerd: een positief getal is geretourneerd.
 		*/
-	int compareTo(Identifier obj);
+	int compareTo(Object obj);
 
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
 		*/
-	Identifier clone();
+	Object clone();
 }

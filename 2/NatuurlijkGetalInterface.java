@@ -16,7 +16,7 @@
 	Er is een nieuw NatuurlijkGetal object gemaakt. De inhoud van het nieuwe NatuurlijkGetal-object is "0".
 	*/
 
-public interface NatuurlijkGetalInterface extends Comparable, Cloneable {
+public interface NatuurlijkGetalInterface extends Data {
 
 	/** @preconditie	-
 		@postconditie	De inhoud van het huidige object is 0.
