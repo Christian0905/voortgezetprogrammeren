@@ -1,10 +1,8 @@
 class Verzameling implements VerzamelingInterface {
 	
-	private NatuurlijkGetal[] ngArray;  //????
-	private int aantalElementen;
+
 
 	Verzameling() {
-		ngArray = new NatuurlijkGetal[MAX_AANTAL_ELEMENTEN];
 		init();
 	}
 	
@@ -13,7 +11,7 @@ class Verzameling implements VerzamelingInterface {
 	}
 	
 	public E retreive() {
-		return new E(ngArray[aantalElementen - 1]);
+	
 	}
 	
 	public VerzamelingInterface<E> insert(Data d) {
