@@ -3,7 +3,7 @@
  * @author	Twan v.d. Loo
  * @author	Jan van der Lugt
  */
- 
+
 /** @elementen	Elementen van het type Data.
 	@structuur	Geen
 	@domein		Alle verzamelingen van Data-elementen.
