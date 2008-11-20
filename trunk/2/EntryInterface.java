@@ -18,6 +18,14 @@
 
 public interface EntryInterface extends Data {
 
+	/**	Bevat een identifier die de naam van de verzameling voorstelt.
+		*/
+	Identifier naam;
+
+	/**	Bevat een verzameling.
+		*/
+	Verzameling inhoud;
+
 	/** @preconditie	-
 		@postconditie	De inhoud van huidige object is de Identifier identifier en een lege verzameling.
 		*/
