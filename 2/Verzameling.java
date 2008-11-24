@@ -1,25 +1,36 @@
-class Verzameling implements VerzamelingInterface {
+class Verzameling<E> implements VerzamelingInterface {
 	
-
+	public Lijst<E> elementen;
+	public int aantalElementen;
+	
+	
 
 	Verzameling() {
 		init();
 	}
 	
-	public VerzamelingInterface<E> init() {
+	public Verzameling<E> init() {
 		aantalElementen = 0;
 	}
 	
 	public E retreive() {
-	
-	}
-	
-	public VerzamelingInterface<E> insert(Data d) {
 		
 	}
 	
-	public VerzamelingInterface<E> remove(Data d) {
+	public Verzameling<E> insert(E element) {
+		
 	}
+	
+	public Verzameling<E> remove(E element) {
+	}
+	
+	public Verzameling<E> doorsnede(Verzameling<E> obj) {
+	}
+	
+	public Verzameling<E> verschil(Verzameling<E> obj) {
+	}
+	
+	
 	
 	public int size() {
 	}
