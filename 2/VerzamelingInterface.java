@@ -4,9 +4,9 @@
  * @author	Jan van der Lugt
  */
 
-/** @elementen	Elementen van het type Data.
+/** @elementen	Objecten van het type E
 	@structuur	Geen
-	@domein		Alle verzamelingen van Data-elementen.
+	@domein		Alle verzamelingen van E-objecten.
 
 	@constructor
 	<h3>Verzameling()</h3>
@@ -21,33 +21,53 @@ public interface VerzamelingInterface<E extends Data> extends Cloneable {
 	/** @preconditie	-
 		@postconditie	Het huidige object bevat geen elementen.
 		*/
-	VerzamelingInterface<E> init();
+	Verzameling<E> init();
 
     /**	@preconditie	De verzameling is niet leeg.
-		@postconditie	Een willekeurig element uit de verzameling is geretourneerd.
+		@postconditie	Een kopie van een willekeurig element uit de verzameling is geretourneerd.
     */
     E retrieve();
 
 	/** @preconditie	-
-		@postconditie	Het Data-element d is aanwezig in de verzameling.
+		@postconditie	Het een kopie van element is aanwezig in de verzameling.
 		*/
-	VerzamelingInterface<E> insert(Data d);
+	Verzameling<E> insert(E element);
 
 	/**	@preconditie	-
-		@postconditie	Het Data-element d is niet aanwezig in de verzameling.
+		@postconditie	element is niet aanwezig in de verzameling.
 		*/
-	VerzamelingInterface<E> remove(Data d);
+	Verzameling<E> remove(E element);
+
+	/**	@preconditie	-
+		@postconditie	Een nieuwe Verzameling is geretourneerd met als inhoud kopieën van de E-elementen die zowel in de huidige Verzameling zitten als in obj.
+		*/
+	Verzameling<E> doorsnede(Verzameling<E> obj);
+
+	/**	@preconditie	-
+		@postconditie	Een nieuwe Verzameling is geretourneerd met als inhoud kopieën van de E-elementen die wel in de huidige Verzameling zitten, maar niet in obj.
+		*/
+	Verzameling<E> verschil(Verzameling<E> obj);
+
+	/**	@preconditie	-
+		@postconditie	Een nieuwe Verzameling is geretourneerd met als inhoud kopieën van de E-elementen die in de huidige Verzameling zitten, of in obj, of in beide.
+		*/
+	Verzameling<E> vereniging(Verzameling<E> obj);
+
+	/**	@preconditie	-
+		@postconditie	Een nieuwe Verzameling is geretourneerd met als inhoud kopieën van de E-elementen die of in de huidige Verzameling zitten, of in obj, maar niet in beide.
+		*/
+	Verzameling<E> symmetrischVerschil(Verzameling<E> obj);
 
 	/** @preconditie	-
-		@postconditie	Het aantal Data-elementen in de Verzameling is geretourneerd.
+		@postconditie	Het aantal elementen in de Verzameling is geretourneerd.
 		*/
 	int size();
 
 	/** @preconditie	-
-		@postconditie	TRUE : obj bevat Data-elementen met dezelfde inhoud als het huidige object.<br />
-						FALSE: obj bevat niet Data-elementen met dezelfde inhoud als het huidige object.
+		@postconditie	TRUE : obj bevat elementen met dezelfde inhoud als de elementen in het huidige object.<br />
+						FALSE: obj bevat niet elementen met dezelfde inhoud als de elementen in het huidige object.
 		*/
-	boolean equals(NatuurlijkGetal obj);
+	boolean equals(Verzameling<E> obj);
 
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
