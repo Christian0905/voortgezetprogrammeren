@@ -1,4 +1,4 @@
-class Entry implements EntryInterface {
+class Entry {
 	
 	private Identifier  naam;
 	private Verzameling inhoud;
