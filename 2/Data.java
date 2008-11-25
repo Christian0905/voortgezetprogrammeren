@@ -17,5 +17,5 @@ public interface Data extends Cloneable, Comparable<Data> {
        gebruiken moet deze public gemaakt worden.
     */
 
-    public Object clone();
+    public Data clone();
 }

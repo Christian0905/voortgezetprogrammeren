@@ -17,17 +17,14 @@ class Knoop implements Cloneable {
     }
 
 
-    public Object clone () {
+    public Knoop clone () {
 	    Knoop kopie;
-
 	    try {
 	        kopie = (Knoop) super.clone();
 	    } catch (CloneNotSupportedException e) {
 	        throw new Error("Onmogelijk! instantie Knoop is niet Cloneable");
 	    }
-
         kopie.data = data == null ? null : (Data) data.clone();
-
 	    return kopie;
     }
     

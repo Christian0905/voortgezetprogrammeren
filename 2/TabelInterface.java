@@ -42,5 +42,5 @@ public interface TabelInterface extends Cloneable {
 	/** @preconditie	-
 		@postconditie	Een deep-copy van de huidige Tabel is geretourneerd.
 		*/
-	Object clone();
+	Tabel clone();
 }

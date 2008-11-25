@@ -80,7 +80,6 @@ class Lijst<E extends Data> implements LijstInterface {
 	
 	public boolean find(Data d) {
 		for (Knoop k = first; k != null; k = k.next) {
-			k = k.next;
 			if(d.compareTo(k.data) == 0) {
 				current = k;
 				return true;
@@ -122,18 +121,18 @@ class Lijst<E extends Data> implements LijstInterface {
 		return true;
 	}
 	
-	public Object clone() {
+	public Lijst<E> clone() {
 		Lijst<E> kopie;
 		try {
 			kopie = (Lijst<E>) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new Error("Onmogelijk! instantie Lijst is niet Cloneable");
 		}
-		
 		kopie.first = first == null?null:(Knoop)first.clone();
 		kopie.last = last == null?null:(Knoop)last.clone();
 		kopie.current = current == null?null:(Knoop)current.clone();
-		kopie.aantalKnopen = aantalKnopen; //???
+		kopie.aantalKnopen = aantalKnopen;
+		//nog niet af, alle knopen moeten nog gekopieerd worden.
 		return kopie;
 	}
 	

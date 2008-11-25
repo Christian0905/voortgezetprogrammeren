@@ -52,7 +52,7 @@ class Verzameling<E extends Data> implements VerzamelingInterface {
 		return elementen.equals(obj.elementen);
 	}
 	
-	public Object clone() {
+	public Verzameling<E> clone() {
 		return null;
 	}
 }

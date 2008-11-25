@@ -44,15 +44,15 @@ public interface NatuurlijkGetalInterface extends Data {
 		*/
 	boolean equals(NatuurlijkGetal obj);
 
-	/** @preconditie	-
+	/** @preconditie	obj heeft het type NatuurlijkGetal
 		@postconditie	Als de inhoud van this numeriek voor de inhoud van obj wordt gesorteerd: een negatief getal is geretourneerd.<br />
 						Als de inhoud van this gelijk is aan de inhoud van obj: het getal 0 is geretourneerd.<br />
 						Als de inhoud van this numeriek na de inhoud van obj wordt gesorteerd: een positief getal is geretourneerd.
 		*/
-	int compareTo(Object obj);
+	int compareTo(Data obj);
 
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
 		*/
-	Object clone();
+	NatuurlijkGetal clone();
 }

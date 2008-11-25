@@ -41,10 +41,7 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		return compareTo(obj) == 0;
 	}
 
-	public int compareTo(Object obj) throws ClassCastException {
-		if (!(obj instanceof NatuurlijkGetal)) {
-			throw new ClassCastException("Natuurlijk getal verwacht.");
-		}
+	public int compareTo(Data obj) throws ClassCastException {
 		NatuurlijkGetal second = (NatuurlijkGetal)obj;
 		if(length() > second.length()) {
 			return 1;
@@ -63,7 +60,7 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		return 0;
 	}
 
-	public Object clone() {
+	public NatuurlijkGetal clone() {
 		NatuurlijkGetal kopie;
 		try {
 			kopie = (NatuurlijkGetal) super.clone();
