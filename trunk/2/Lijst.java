@@ -132,10 +132,10 @@ class Lijst<E extends Data> implements LijstInterface {
 		} catch (CloneNotSupportedException e) {
 			throw new Error("Onmogelijk! instantie Lijst is niet Cloneable");
 		}
-		kopie.first = first == null?null:(Knoop)first.clone();
-		kopie.last = last == null?null:(Knoop)last.clone();
-		kopie.current = current == null?null:(Knoop)current.clone();
-		kopie.aantalKnopen = aantalKnopen;
+		for (Knoop k = first; k != null; k = k.next) {
+			kopie.insert(k.data);
+		}
+		
 		//nog niet af, alle knopen moeten nog gekopieerd worden.
 		return kopie;
 	}
