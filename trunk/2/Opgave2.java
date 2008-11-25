@@ -156,11 +156,11 @@ class Opgave2 {
 	}
 
 	boolean nextCharIsEOL() {
-		return in.hasNext("\n") || in.hasNext("\r\n");
+		return in.hasNext("\n") || in.hasNext("\r");
 	}
 
 	void readEOL() {
-		if (nextChar() == '\r') {
+		if (nextChar() == '\r' && nextCharIs('\n')) {
 			nextChar();
 		}
 	}
