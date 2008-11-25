@@ -19,14 +19,14 @@
 public interface IdentifierInterface extends Data {
 
 	/** @preconditie	c is een letter.
-		@postconditie	De inhoud van het Identifier-object is precies de letter c
+		@postconditie	De inhoud van het Identifier-object is precies de letter c en het huidige object is geretourneerd.
 		*/
-	void init(char c);
+	Identifier init(char c);
 
 	/** @preconditie	-
-		@postconditie	c is achteraan toegevoegd aan de Identifier
+		@postconditie	c is achteraan toegevoegd aan de Identifier en het huidige object is geretourneerd.
 		*/
-	void append(char c);
+	Identifier append(char c);
 
 	/** @preconditie	i is groter dan of gelijk aan 0 en kleiner dan het aantal karakters van de Identifier
 		@postconditie	Het karakter op indexpositie i is geretourneerd
