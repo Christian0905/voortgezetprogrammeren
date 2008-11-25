@@ -117,7 +117,7 @@ interface LijstInterface<E extends Data> extends Cloneable {
 	      TRUE:  current-POST wijst de voorganger van current-PRE aan
     */
 
-    public Lijst<E> clone ();
+    public Object clone ();
     /* PRE  -
        POST - Een deep-copy van lijst is geretourneerd.
     */
