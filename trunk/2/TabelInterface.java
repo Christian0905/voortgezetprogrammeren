@@ -32,7 +32,7 @@ public interface TabelInterface extends Cloneable {
 	/** @preconditie	-
 		@postconditie	Een paar van i en v is toegevoeggd. Als i al bestond in Tabel-PRE, is de verzameling overschreven met v.
 		*/
-	Tabel insert(Identifer i, Verzameling<NatuurlijkGetal> v);
+	Tabel insert(Identifier i, Verzameling<NatuurlijkGetal> v);
 
 	/** @preconditie	-
 		@postconditie	Het aantal elementen in de Tabel is geretourneerd.
