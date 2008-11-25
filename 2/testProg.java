@@ -6,6 +6,7 @@ class testProg {
 	PrintStream out;
 	Lijst<Identifier> iLijstje;
 	Lijst<NatuurlijkGetal> ngLijstje;
+	Lijst<Identifier> kopieLijstje;
 
 	testProg() {
 		in = new Scanner(System.in);
@@ -13,6 +14,7 @@ class testProg {
 		
 		iLijstje = new Lijst<Identifier>();
 		ngLijstje = new Lijst<NatuurlijkGetal>();
+		kopieLijstje = new Lijst<Identifier>();
 	}
 
 	public void start() {
@@ -27,8 +29,11 @@ class testProg {
 		iLijstje.insert(i.init('a'));
 		out.printf("iLijstje: %s\n", iLijstje.toString());
 		out.printf("current: %s\n", iLijstje.retrieve().toString());
+		// lijst clonen
+		kopieLijstje = iLijstje.clone();
+		
 		// zoeken
-		out.printf("zoek a: %s\n",iLijstje.find(i.init('a')));
+		out.printf("zoek 1: %s\n",iLijstje.find(i.init('1')));
 		out.printf("current: %s\n", iLijstje.retrieve().toString());
 		out.printf("zoek aa: %s\n",iLijstje.find(i.init('a').append('a')));
 		out.printf("current: %s\n", iLijstje.retrieve().toString());
@@ -48,6 +53,7 @@ class testProg {
 		out.printf("current word nu verwijdert 3\n");
 		iLijstje.remove();
 		out.printf("iLijstje: %s\n", iLijstje.toString());
+		out.printf("kopie lijstje %s\n", kopieLijstje.toString());
 		out.print("\n");
 		/*
 		NatuurlijkGetal ng = new NatuurlijkGetal();
