@@ -64,12 +64,6 @@ public interface VerzamelingInterface<E extends Data> extends Cloneable {
 	int size();
 
 	/** @preconditie	-
-		@postconditie	TRUE : obj bevat elementen met dezelfde inhoud als de elementen in het huidige object.<br />
-						FALSE: obj bevat niet elementen met dezelfde inhoud als de elementen in het huidige object.
-		*/
-	boolean equals(Verzameling<E> obj);
-
-	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
 		*/
 	Verzameling<E> clone();

@@ -17,9 +17,12 @@ class Verzameling<E extends Data> implements VerzamelingInterface {
 	}
 	
 	public Verzameling<E> insert(Data d) {
-		elementen.insert(d);
+		if (!elementen.find(d)) {
+			elementen.insert(d);
+		}
 		return this;
 	}
+	
 	
 	public Verzameling<E> remove(Data d) {
 		if (elementen.find(d)) {
@@ -33,26 +36,45 @@ class Verzameling<E extends Data> implements VerzamelingInterface {
 	}
 	
 	public Verzameling<E> doorsnede(Verzameling obj) {
-		return null;
+		Verzameling<E> resultaat = new Verzameling<E>();
+		for (Knoop k = elementen.first; k != null; k = k.next) {
+			if (obj.elementen.find(k.data)) {
+				resultaat.insert(k.data);
+			}
+		}
+		return resultaat;
 	}
 	
 	public Verzameling<E> verschil(Verzameling obj) {
-		return null;
+		Verzameling<E> resultaat = new Verzameling<E>();
+		for (Knoop k = elementen.first; k != null; k = k.next) {
+			if (!obj.elementen.find(k.data)) {
+				resultaat.insert(k.data);
+			}
+		}
+		return resultaat;
 	}
 	
 	public Verzameling<E> vereniging(Verzameling obj) {
-		return null;
+		Verzameling<E> resultaat = clone();
+		for (Knoop k = obj.elementen.first; k != null; k = k.next) {
+			resultaat.insert(k.data);
+		}
+		return resultaat;
 	}
 	
 	public Verzameling<E> symmetrischVerschil(Verzameling obj) {
-		return null;
-	}
-	
-	public boolean equals(Verzameling obj) {
-		return elementen.equals(obj.elementen);
+		return vereniging(obj).verschil(doorsnede(obj));
 	}
 	
 	public Verzameling<E> clone() {
-		return null;
+		Verzameling<E> kopie;
+		try {
+			kopie = (Verzameling<E>) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Onmogelijk! instantie Verzameling is niet Cloneable");
+		}
+		kopie.elementen = elementen.clone();
+		return kopie;
 	}
 }

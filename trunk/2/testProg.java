@@ -55,7 +55,7 @@ class testProg {
 		out.printf("iLijstje: %s\n", iLijstje.toString());
 		out.printf("kopie lijstje %s\n", kopieLijstje.toString());
 		out.print("\n");
-		/*
+		
 		NatuurlijkGetal ng = new NatuurlijkGetal();
 		ngLijstje.insert(ng.init().append('7'));
 		out.printf("ngLijstje: %s\n", ngLijstje.toString());
@@ -63,7 +63,7 @@ class testProg {
 		out.printf("ngLijstje: %s\n", ngLijstje.toString());
 		ngLijstje.insert(ng.init());
 		out.printf("ngLijstje: %s\n", ngLijstje.toString());
-	*/}
+	}
 
 	public static void main(String argv[]) {
 		new testProg().start();
