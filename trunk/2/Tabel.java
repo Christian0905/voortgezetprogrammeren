@@ -20,7 +20,7 @@ class Tabel implements TabelInterface {
 		return 0;
 	}
 
-	public Object clone() {
+	public Tabel clone() {
 		return null;
 	}
 }

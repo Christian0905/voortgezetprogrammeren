@@ -34,8 +34,8 @@ class Identifier implements IdentifierInterface {
 		return compareTo(obj) == 0;
 	}
 	
-	public int compareTo(Object obj) {
-		Identifier second = (Identifier) obj;
+	public int compareTo(Data obj) {
+		Identifier second = (Identifier)obj;
 		for(int i = 0; i < Math.min(length(), second.length()); i++) {
 			if(charAt(i) > second.charAt(i)) {
 				return 1;
@@ -53,7 +53,7 @@ class Identifier implements IdentifierInterface {
 		return 0;
 	}
 	
-	public Object clone() {
+	public Identifier clone() {
 		Identifier kopie;
 		try {
 			kopie = (Identifier) super.clone(); // shallow copy

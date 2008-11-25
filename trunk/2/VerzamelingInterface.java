@@ -72,5 +72,5 @@ public interface VerzamelingInterface<E extends Data> extends Cloneable {
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
 		*/
-	Object clone();
+	Verzameling<E> clone();
 }

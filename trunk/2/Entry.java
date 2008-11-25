@@ -16,11 +16,11 @@ class Entry {
 		return compareTo(obj) == 0;
 	}
 	
-	public int compareTo(Object obj) {
-		return naam.compareTo(((Entry)obj).naam);
+	public int compareTo(Entry obj) {
+		return naam.compareTo(obj.naam);
 	}
 	
-	public Object clone() {
+	public Entry clone() {
 		return null;
 	}
 }
