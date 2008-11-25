@@ -122,7 +122,7 @@ class Lijst<E extends Data> implements LijstInterface {
 		return true;
 	}
 	
-	public Lijst<E> clone() {
+	public Object clone() {
 		Lijst<E> kopie;
 		try {
 			kopie = (Lijst<E>) super.clone();

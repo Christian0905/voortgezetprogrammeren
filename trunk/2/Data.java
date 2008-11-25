@@ -1,4 +1,4 @@
-public interface Data extends Cloneable, Comparable {
+public interface Data extends Cloneable, Comparable<Data> {
 
     /*
        Deze interface maakt een type Data dat de eigenschappen Cloneable
