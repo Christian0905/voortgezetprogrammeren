@@ -1,43 +1,37 @@
-class Verzameling<E> implements VerzamelingInterface {
-	
-	public Lijst<E> elementen;
-	public int aantalElementen;
-	
-	
+class Verzameling<E extends Data> implements VerzamelingInterface {
 
-	Verzameling() {
+	Lijst<E> elementen;
+	
+	public Verzameling() {
+		elementen = new Lijst<E>();
 		init();
 	}
 	
 	public Verzameling<E> init() {
-		aantalElementen = 0;
+		elementen.init();
 	}
 	
 	public E retreive() {
-		
+		return elementen.retrieve();
 	}
 	
-	public Verzameling<E> insert(E element) {
-		
+	public Verzameling<E> insert(Data d) {
+		return null;
 	}
 	
-	public Verzameling<E> remove(E element) {
+	public Verzameling<E> remove(Data d) {
+		return null;
 	}
-	
-	public Verzameling<E> doorsnede(Verzameling<E> obj) {
-	}
-	
-	public Verzameling<E> verschil(Verzameling<E> obj) {
-	}
-	
-	
 	
 	public int size() {
+		return elementen.size();
 	}
 	
-	public boolean equals(NatuurlijkGetal obj) {
+	public boolean equals(Verzameling<E> obj) {
+		return true;
 	}
 	
 	public Object clone() {
+		return null;
 	}
 }

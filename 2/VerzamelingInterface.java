@@ -29,7 +29,7 @@ public interface VerzamelingInterface<E extends Data> extends Cloneable {
     E retrieve();
 
 	/** @preconditie	-
-		@postconditie	Het een kopie van element is aanwezig in de verzameling.
+		@postconditie	Een kopie van element is aanwezig in de verzameling.
 		*/
 	Verzameling<E> insert(E element);
 

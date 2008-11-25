@@ -23,7 +23,7 @@ class Lijst<E extends Data> implements LijstInterface {
 		return aantalKnopen;
 	}
 	
-	public Lijst<E> insert(E d) {
+	public Lijst<E> insert(Data d) {
 		if (isEmpty()) {
 			first = current = last = new Knoop(d);  // toevoegen als leeg
 			aantalKnopen += 1;
@@ -49,10 +49,8 @@ class Lijst<E extends Data> implements LijstInterface {
 		return this;
 	}
 
-	public E retreive() {
-		Knoop tijdelijk = new Knoop(null);
-		tijdelijk = current;
-		return (E)tijdelijk.data;  // hier cast maar hoe
+	public E retrieve() {
+		return (E)current.data;
 	}
 	
 	public Lijst<E> remove() {
@@ -79,7 +77,7 @@ class Lijst<E extends Data> implements LijstInterface {
 		}
 	}
 	
-	public boolean find(E d) {
+	public boolean find(Data d) {
 		for (Knoop k = first; k != null; k = k.next) {
 			k = k.next;
 			if(d.compareTo(k.data) == 0) {

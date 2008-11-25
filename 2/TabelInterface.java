@@ -30,7 +30,7 @@ public interface TabelInterface extends Cloneable {
     Verzameling<NatuurlijkGetal> retrieve(Identifier i) throws VPException;
 
 	/** @preconditie	-
-		@postconditie	Een paar van i en v is teogevoeggd. Als i al bestond in Tabel-PRE, is de verzameling overschreven met v.
+		@postconditie	Een paar van i en v is toegevoeggd. Als i al bestond in Tabel-PRE, is de verzameling overschreven met v.
 		*/
 	Tabel insert(Identifer i, Verzameling<NatuurlijkGetal> v);
 

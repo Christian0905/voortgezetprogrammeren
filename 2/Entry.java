@@ -1,7 +1,7 @@
 class Entry {
 	
-	private Identifier  naam;
-	private Verzameling inhoud;
+	public Identifier naam;
+	public Verzameling inhoud;
 
 	Entry(Identifier identifier) {
 		init(identifier);
@@ -17,6 +17,7 @@ class Entry {
 	}
 	
 	public int compareTo(Object obj) {
+		return naam.compareTo((Identifier)obj.naam);
 	}
 	
 	public Object clone() {
