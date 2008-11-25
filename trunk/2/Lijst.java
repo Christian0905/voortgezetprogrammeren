@@ -24,25 +24,27 @@ class Lijst<E extends Data> implements LijstInterface {
 	}
 	
 	public Lijst<E> insert(Data d) {
+		Data kopie = (Data)d.clone();
 		if (isEmpty()) {
-			first = current = last = new Knoop(d);  // toevoegen als leeg
+			first = current = last = new Knoop(kopie);
 			aantalKnopen += 1;
 			return this;
 		}
 		Knoop k = first;
-		while(d.compareTo(k.data) > 0) {
+		while(k != null && d.compareTo(k.data) > 0) {
 			k = k.next;
 		}
 		if (k == null) { //laatste knoop
-			last.next = new Knoop(d, last, null);
+			last.next = new Knoop(kopie, last, null);
 			last = last.next;
 			aantalKnopen += 1;
 			return this;
 		}
-		k.prior = new Knoop(d, k.prior, k);
-		k.prior.prior.next = k.prior;
+		k.prior = new Knoop(kopie, k.prior, k);
 		if (k == first) {
 			first = k.prior;
+		} else {
+			k.prior.prior.next = k.prior;
 		}
 		aantalKnopen += 1;
 		return this;

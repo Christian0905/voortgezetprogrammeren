@@ -1,40 +1,46 @@
 class NatuurlijkGetal implements NatuurlijkGetalInterface {
-	
+
 	private StringBuffer elementen;
-	
+
 	NatuurlijkGetal() {
 		elementen = new StringBuffer();
 		init();
 	}
-	
-	public void init() {
+
+	public NatuurlijkGetal init() {
 		elementen.delete(0, elementen.length());
 		elementen.append('0');
+		return this;
 	}
-	
-	public void append(char c) {
+
+	public NatuurlijkGetal append(char c) {
 		if (bevatAlleenNul()) {
 			elementen.deleteCharAt(0);
 		}
 		elementen.append(c);
+		return this;
 	}
-	
+
 	public boolean bevatAlleenNul() {
 		return elementen.charAt(0) == '0' && elementen.length() == 1;
 	}
-	
+
 	public char charAt(int i) {
 		return elementen.charAt(i);
 	}
-	
+
 	public int length() {
 		return elementen.length();
 	}
-	
+
+	public String toString() {
+		return elementen.toString();
+	}
+
 	public boolean equals(NatuurlijkGetal obj) {
 		return compareTo(obj) == 0;
 	}
-	
+
 	public int compareTo(Object obj) throws ClassCastException {
 		if (!(obj instanceof NatuurlijkGetal)) {
 			throw new ClassCastException("Natuurlijk getal verwacht.");
@@ -45,7 +51,7 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		} else
 		if(length() < second.length()) {
 			return -1;
-		}	
+		}
 		for(int i = 0; i<length(); i++) {
 			if(charAt(i) > second.charAt(i)) {
 				return 1;
@@ -56,7 +62,7 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		}
 		return 0;
 	}
-	
+
 	public Object clone() {
 		NatuurlijkGetal kopie;
 		try {

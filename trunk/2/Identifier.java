@@ -7,13 +7,15 @@ class Identifier implements IdentifierInterface {
 		init('a');
 	}
 
-	public void init(char c) {
+	public Identifier init(char c) {
 		elementen.delete(0, elementen.length());
 		elementen.append(c);
+		return this;
 	}
 
-	public void append(char c) {
+	public Identifier append(char c) {
 		elementen.append(c);
+		return this;
 	}
 
 	public char charAt(int i) {

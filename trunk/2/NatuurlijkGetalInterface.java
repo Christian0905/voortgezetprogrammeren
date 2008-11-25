@@ -19,14 +19,14 @@
 public interface NatuurlijkGetalInterface extends Data {
 
 	/** @preconditie	-
-		@postconditie	De inhoud van het huidige object is 0.
+		@postconditie	De inhoud van het huidige object is 0 en het huidige object is geretourneerd.
 		*/
-	void init();
+	NatuurlijkGetal init();
 
 	/** @preconditie	-
-		@postconditie	Als de inhoud-PRE 0 is, is de inhoud-POST het cijfer c, tenzij c 0 is, dan is inhoud-POST 0. In andere gevallen is cijfer c achteraan inhoud-PRE toegevoegd.
+		@postconditie	Als de inhoud-PRE 0 is, is de inhoud-POST het cijfer c, tenzij c 0 is, dan is inhoud-POST 0. In andere gevallen is cijfer c achteraan inhoud-PRE toegevoegd. Daarnaast is het huidige object geretourneerd.
 		*/
-	void append(char c);
+	NatuurlijkGetal append(char c);
 
 	/** @preconditie	i is groter dan of gelijk aan 0 en kleiner dan het aantal cijfers van het NatuurlijkGetal.
 		@postconditie	Het karakter op indexpositie i is geretourneerd.
