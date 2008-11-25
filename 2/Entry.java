@@ -17,9 +17,10 @@ class Entry {
 	}
 	
 	public int compareTo(Object obj) {
-		return naam.compareTo((Identifier)obj.naam);
+		return naam.compareTo(((Entry)obj).naam);
 	}
 	
 	public Object clone() {
+		return null;
 	}
 }

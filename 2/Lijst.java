@@ -29,7 +29,6 @@ class Lijst<E extends Data> implements LijstInterface {
 			aantalKnopen += 1;
 			return this;
 		}
-		
 		Knoop k = first;
 		while(d.compareTo(k.data) > 0) {
 			k = k.next;

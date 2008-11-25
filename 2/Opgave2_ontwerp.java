@@ -15,12 +15,28 @@ class Opgave2 {
 	public void start() {
 		in.useDelimiter("");
 
-		IdentifierVerzameling eersteVerzameling = new IdentifierVerzameling();
-		while(leesVerzamelingen(eersteVerzameling, tweedeVerzameling)) {
-			verwerkEnPrintOperaties(eersteVerzameling, tweedeVerzameling);
+		Tabel variabelen = new Tabel();
+		while(in.hasNext()) {
+			leesCommando();
 		}
 	}
 
+	boolean accept(char c) {
+		if (nextCharIs(c)) {
+			nextChar();
+			return true
+		}
+		return false;
+	}
+	
+	boolean expect(char c) {
+		if (accept(c)) {
+			return true;
+		}
+		out.printf("Fout: %s verwacht.", c);
+		return false;
+	}
+	
 	boolean leesVerzamelingen(IdentifierVerzameling eersteVerzameling, IdentifierVerzameling tweedeVerzameling) {
 		return
 		leesIdentifierVerzameling(eersteVerzameling, "Geef eerste verzameling : ") &&
