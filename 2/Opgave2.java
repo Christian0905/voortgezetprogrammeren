@@ -6,16 +6,17 @@ class Opgave2 {
 
 	Scanner in;
 	PrintStream out;
+	
+	Tabel variabelen;
 
 	Opgave2() {
 		in = new Scanner(System.in);
+		in.useDelimiter("");
 		out = new PrintStream(System.out);
+		variabelen = new Tabel();
 	}
 
 	public void start() {
-		in.useDelimiter("");
-
-		Tabel variabelen = new Tabel();
 		while(in.hasNext()) {
 			try {
 				statement();
@@ -42,39 +43,22 @@ class Opgave2 {
 
 	void assignment() throws VPException {
 		Identifier i = identifier();
-		skipSpaces();
-		if (!nextCharIs('=')) {
-			throw new VPException("ongeldig opgebouwde assignment");
-		} else {
-			nextChar();
-		}
-		skipSpaces();
+		lees('=');
 		Verzameling e = expressie();
-		skipSpaces();
-		if (!nextCharIsEOL()) {
-			throw new VPException("ongeldig opgebouwde assignment");
-		} else {
-			readEOL();
-		}
+		leesEOL();
 	}
 
 	void print_statement() throws VPException {
-		nextChar();
-		skipSpaces();
+		lees('?');
 		Verzameling e = expressie();
-		skipSpaces();
-		if (!nextCharIsEOL()) {
-			throw new VPException("ongeldig opgebouwd print_statement");
-		} else {
-			readEOL();
-		}
+		leesEOL();
 	}
 
 	void commentaar() throws VPException {
 		while(!nextCharIsEOL()) {
 			nextChar();
 		}
-		readEOL();
+		leesEOL();
 	}
 
 	Identifier identifier() throws VPException {
@@ -138,6 +122,30 @@ class Opgave2 {
 	}
 
 	//Hulpmethodes
+	
+	void lees(char c) throws VPException {
+		skipSpaces();
+		if (nextCharIs(c)) {
+			nextChar();
+		} else {
+			throw new VPException(c + " verwacht.");
+		}
+	}
+	
+	void leesEOL() throws VPException {
+		skipSpaces();
+		if (nextCharIsEOL()) {
+			if (nextChar() == '\r' && nextCharIs('\n')) {
+				nextChar();
+			}
+		} else {
+			throw new VPException("End-of-line verwacht.");
+		}
+	}
+	
+	boolean nextCharIsEOL() {
+		return in.hasNext("\n") || in.hasNext("\r");
+	}
 
 	char nextChar() {
 		return in.next().charAt(0);
@@ -153,16 +161,6 @@ class Opgave2 {
 
 	boolean nextCharIsLetter() {
 	    return in.hasNext("[a-zA-Z]");
-	}
-
-	boolean nextCharIsEOL() {
-		return in.hasNext("\n") || in.hasNext("\r");
-	}
-
-	void readEOL() {
-		if (nextChar() == '\r' && nextCharIs('\n')) {
-			nextChar();
-		}
 	}
 
 	void skipSpaces() {
