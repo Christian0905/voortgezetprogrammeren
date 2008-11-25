@@ -42,7 +42,7 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		NatuurlijkGetal second = (NatuurlijkGetal)obj;
 		if(length() > second.length()) {
 			return 1;
-		}
+		} else
 		if(length() < second.length()) {
 			return -1;
 		}	
