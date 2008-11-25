@@ -35,12 +35,12 @@ class Lijst<E extends Data> implements LijstInterface {
 			k = k.next;
 		}
 		if (k == null) { //laatste knoop
-			last.next = new Knoop(kopie, last, null);
+			current = last.next = new Knoop(kopie, last, null);
 			last = last.next;
 			aantalKnopen += 1;
 			return this;
 		}
-		k.prior = new Knoop(kopie, k.prior, k);
+		current = k.prior = new Knoop(kopie, k.prior, k);
 		if (k == first) {
 			first = k.prior;
 		} else {
@@ -79,13 +79,17 @@ class Lijst<E extends Data> implements LijstInterface {
 	}
 	
 	public boolean find(Data d) {
-		for (Knoop k = first; k != null; k = k.next) {
-			if(d.compareTo(k.data) == 0) {
-				current = k;
+		for (current = first; current != null && d.compareTo(current.data) >= 0; current = current.next) {
+			if(d.compareTo(current.data) == 0) {
 				return true;
+			} else
+			if(d.compareTo(current.data) < 0) {
+				return false;
 			}
 		}
-		//hier moet nog veel zooi
+		if(current == null) {
+			current = last;
+		}
 		return false;
 	}
 
