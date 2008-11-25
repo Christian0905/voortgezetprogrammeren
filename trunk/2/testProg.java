@@ -4,22 +4,22 @@ import java.util.Scanner;
 class testProg {
 	Scanner in;
 	PrintStream out;
-	Lijst<NatuurlijkGetal> lijstje;
+	Lijst<Identifier> lijstje;
 
 	testProg() {
 		in = new Scanner(System.in);
 		out = new PrintStream(System.out);
 		
-		lijstje = new Lijst<NatuurlijkGetal>();
+		lijstje = new Lijst<Identifier>();
 	}
 
 	public void start() {
-		NatuurlijkGetal ng = new NatuurlijkGetal();
-		lijstje.insert(ng.init().append('4'));
+		Identifier ng = new Identifier();
+		lijstje.insert(ng.init('a').append('c'));
 		out.printf("lijstje: %s\n", lijstje.toString());
-		lijstje.insert(ng.init().append('2'));
+		lijstje.insert(ng.init('a').append('a'));
 		out.printf("lijstje: %s\n", lijstje.toString());
-		lijstje.insert(ng.init().append('3'));
+		lijstje.insert(ng.init('a'));
 		out.printf("lijstje: %s\n", lijstje.toString());
 	}
 
