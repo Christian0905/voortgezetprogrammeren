@@ -8,7 +8,10 @@ class testProg {
 	Lijst<NatuurlijkGetal> ngLijstje;
 	Lijst<Identifier> kopieLijstje;
 	Lijst<NatuurlijkGetal> kopieLijstje2;
-
+	Verzameling testVerzameling;
+	Verzameling testVerzameling2;
+	Verzameling kopieVerzameling;
+	
 	testProg() {
 		in = new Scanner(System.in);
 		out = new PrintStream(System.out);
@@ -17,6 +20,9 @@ class testProg {
 		ngLijstje = new Lijst<NatuurlijkGetal>();
 		kopieLijstje = new Lijst<Identifier>();
 		kopieLijstje2 = new Lijst<NatuurlijkGetal>();
+		testVerzameling = new Verzameling();
+		testVerzameling2 = new Verzameling();
+		kopieVerzameling = new Verzameling();
 	}
 
 	public void start() {
@@ -100,13 +106,47 @@ class testProg {
 		out.printf("setFirst\n");
 		ngLijstje.setFirst();
 		out.printf("current ngLijst: %s\n", ngLijstje.retrieve().toString());
-		
-
-
-
 		out.print("\n");
 		
+		//Verzameling test
+		testVerzameling.insert(ng.init().append('a').append('a').append('p'));
+		testVerzameling.insert(ng.init().append('n').append('o').append('o').append('t'));
+		testVerzameling.insert(ng.init().append('m').append('i').append('e').append('s'));
+		testVerzameling.insert(ng.init().append('m').append('i').append('e').append('s').append('2'));
+		testVerzameling2.insert(ng.init().append('a').append('a').append('l'));
+		testVerzameling2.insert(ng.init().append('w'));
+		testVerzameling2.insert(ng.init().append('x').append('y').append('z'));
+		testVerzameling2.insert(ng.init().append('n').append('o').append('o').append('t'));
+		out.printf("Current testverzameling : %s\n", testVerzameling.retrieve().toString());
+		out.printf("Testverzameling 1 = %s\n", testVerzameling.elementen.toString());
+		out.printf("Testverzameling 2 = %s\n", testVerzameling2.elementen.toString());
+		//out.printf("Verschil = %s\n", testVerzameling.verschil(testVerzameling2)); < hoe kan dat zo?
+		Verzameling tv = new Verzameling();
+		tv = testVerzameling.verschil(testVerzameling2);
+		out.printf("Verschil = %s\n", tv.elementen.toString());
 		
+		Verzameling tv2 = new Verzameling();
+		tv2 = testVerzameling.doorsnede(testVerzameling2);
+		out.printf("Doorsnede = %s\n", tv2.elementen.toString());
+		
+		Verzameling tv3 = new Verzameling();
+		tv3 = testVerzameling.vereniging(testVerzameling2);
+		out.printf("Vereniging = %s\n", tv3.elementen.toString());
+		
+		Verzameling tv4 = new Verzameling();
+		tv4 = testVerzameling.symmetrischVerschil(testVerzameling2);
+		out.printf("Symm. Versch. = %s\n", tv4.elementen.toString());
+		out.print("\n");
+		// clone test
+		kopieVerzameling = testVerzameling.clone();
+		out.printf("Kopie van testverzameling = %s\n", kopieVerzameling.elementen.toString());
+		
+		// verwijderen
+		out.printf("aap en noot verwijderen uit origineel\n");
+		testVerzameling.remove(ng.init().append('a').append('a').append('p'));
+		testVerzameling.remove(ng.init().append('n').append('o').append('o').append('t'));
+		out.printf("testVerzameling na verwijderen = %s\n", testVerzameling.elementen.toString());
+		out.printf("kopie van testVerzameling na verwijderen = %s\n", kopieVerzameling.elementen.toString());
 		
 	}
 
