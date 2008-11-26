@@ -58,24 +58,23 @@ class Lijst<E extends Data> implements LijstInterface {
 		if (aantalKnopen == 1) { // laatste knoop verwijderen
 			first = last = current = null;
 			aantalKnopen = 0;
-			return this;
-		} else if (current == first) {
+		} else
+		if (current == first) {
 			first = current = current.next;
 			current.prior = null;
 			aantalKnopen -= 1;
-			return this;
-		} else if (current == last) {
+		} else
+		if (current == last) {
 			last = current = current.prior;
 			current.next = null;
 			aantalKnopen -= 1;
-			return this;
 		} else {
 			current.prior.next = current.next; // current verwijderen en next wordt current
 			current.next.prior = current.prior;
 			current = current.next;
 			aantalKnopen -= 1;
-			return this;
 		}
+		return this;
 	}
 	
 	public boolean find(Data d) {
@@ -130,13 +129,13 @@ class Lijst<E extends Data> implements LijstInterface {
 		try {
 			kopie = (Lijst<E>) super.clone();
 		} catch (CloneNotSupportedException e) {
-			throw new Error("Onmogelijk! instantie Lijst is niet Cloneable");
+			throw new Error("Deze class is niet cloneable.");
 		}
+		kopie.init();
 		for (Knoop k = first; k != null; k = k.next) {
 			kopie.insert(k.data);
 		}
-		
-		//nog niet af, alle knopen moeten nog gekopieerd worden.
+		kopie.find(current.data);
 		return kopie;
 	}
 	

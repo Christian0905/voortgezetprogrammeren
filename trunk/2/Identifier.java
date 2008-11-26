@@ -58,7 +58,7 @@ class Identifier implements IdentifierInterface {
 		try {
 			kopie = (Identifier) super.clone();
 		} catch (CloneNotSupportedException e) {
-			throw new Error("Deze class is niet cloneable");
+			throw new Error("Deze class is niet cloneable.");
 		}
 		kopie.elementen = new StringBuffer(elementen);
 		return kopie;
