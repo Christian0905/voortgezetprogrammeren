@@ -7,6 +7,7 @@ class testProg {
 	Lijst<Identifier> iLijstje;
 	Lijst<NatuurlijkGetal> ngLijstje;
 	Lijst<Identifier> kopieLijstje;
+	Lijst<NatuurlijkGetal> kopieLijstje2;
 
 	testProg() {
 		in = new Scanner(System.in);
@@ -15,6 +16,7 @@ class testProg {
 		iLijstje = new Lijst<Identifier>();
 		ngLijstje = new Lijst<NatuurlijkGetal>();
 		kopieLijstje = new Lijst<Identifier>();
+		kopieLijstje2 = new Lijst<NatuurlijkGetal>();
 	}
 
 	public void start() {
@@ -63,6 +65,49 @@ class testProg {
 		out.printf("ngLijstje: %s\n", ngLijstje.toString());
 		ngLijstje.insert(ng.init());
 		out.printf("ngLijstje: %s\n", ngLijstje.toString());
+		ngLijstje.insert(ng.init().append('9').append('8').append('5'));
+		out.printf("ngLijstje: %s\n", ngLijstje.toString());
+		ngLijstje.insert(ng.init().append('0').append('0').append('5'));  // 005 word 5
+		out.printf("ngLijstje: %s\n", ngLijstje.toString());
+		// lijst clonen
+		kopieLijstje2 = ngLijstje.clone();
+		out.printf("kopie ng lijstje %s\n", kopieLijstje2.toString());
+		// zoeken
+		out.printf("Zoek 7: %s\n", ngLijstje.find(ng.init().append('7')));
+		out.printf("Zoek 5: %s\n", ngLijstje.find(ng.init().append('5')));
+		out.printf("Zoek 005: %s\n", ngLijstje.find(ng.init().append('0').append('0').append('5')));
+		out.printf("Zoek 3: %s\n", ngLijstje.find(ng.init().append('3')));
+		// current zoeken
+		out.printf("current: %s\n", ngLijstje.retrieve().toString());
+		// verwijderen
+		out.printf("current word nu verwijdert 1\n");
+		ngLijstje.remove();
+		out.printf("current: %s\n", ngLijstje.retrieve().toString());
+		out.printf("ngLijstje: %s\n", ngLijstje.toString());
+		out.printf("current word nu verwijdert 2\n");
+		ngLijstje.remove();
+		out.printf("current: %s\n", ngLijstje.retrieve().toString());
+		out.printf("ngLijstje: %s\n", ngLijstje.toString());
+		out.printf("current word nu verwijdert 3\n");
+		ngLijstje.remove();
+		out.printf("ngLijstje: %s\n", ngLijstje.toString());
+		out.printf("kopie lijstje ng %s\n", kopieLijstje2.toString());
+		// size
+		out.printf("aantal elementen kopielijstje ng %d\n", kopieLijstje2.size());
+		out.printf("aantal elementen lijstje ng %d\n", ngLijstje.size());
+		// set current first
+		out.printf("current ngLijst: %s\n", ngLijstje.retrieve().toString());
+		out.printf("setFirst\n");
+		ngLijstje.setFirst();
+		out.printf("current ngLijst: %s\n", ngLijstje.retrieve().toString());
+		
+
+
+
+		out.print("\n");
+		
+		
+		
 	}
 
 	public static void main(String argv[]) {
