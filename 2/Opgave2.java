@@ -21,7 +21,7 @@ class Opgave2 {
 			try {
 				statement();
 			} catch (VPException e) {
-				out.printf("Fout: %s\n", e.getMessage());
+				out.printf("Fout: %s.\n", e.getMessage());
 			}
 		}
 	}
@@ -37,7 +37,7 @@ class Opgave2 {
 		if (nextCharIs('/')) {
 			commentaar();
 		} else {
-			throw new VPException("geen geldig statement gegeven");
+			throw new VPException("statement verwacht");
 		}
 	}
 
@@ -62,7 +62,9 @@ class Opgave2 {
 	}
 
 	Identifier identifier() throws VPException {
-		return null;
+		Identifier resultaat = new Identifier();
+		resultaat.init(letter());
+		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> expressie() throws VPException {
@@ -90,35 +92,74 @@ class Opgave2 {
 	}
 
 	char additieve_operator() throws VPException {
-		return '0';
+		if (nextCharIs('+') || nextCharIs('|') || nextCharIs('-')) {
+			return nextChar();
+		} else {
+			throw new VPException("additieve operator verwacht");
+		}
 	}
 
 	char multiplicatieve_operator() throws VPException {
-		return '0';
+		if (nextCharIs('*')) {
+			return nextChar();
+		} else {
+			throw new VPException("multiplicatieve operator verwacht");
+		}
 	}
 
 	NatuurlijkGetal natuurlijk_getal() throws VPException {
-		return null;
+		if (nextCharIsDigit() && !nextCharIs('0')) {
+			return positief_getal();
+		} else
+		if (nextCharIs('0')) {
+			return new NatuurlijkGetal();
+		} else {
+			throw new VPException("natuurlijk getal verwacht");
+		}
 	}
 
 	NatuurlijkGetal positief_getal() throws VPException {
-		return null;
+		NatuurlijkGetal resultaat = new NatuurlijkGetal();
+		resultaat.append(niet_nul());
+		while (nextCharIsDigit()) {
+			resultaat.append(cijfer());
+		}
+		return resultaat;
 	}
 
 	char cijfer() throws VPException {
-		return '0';
+		if (nextCharIs('0')) {
+			return nul();
+		} else
+		if (nextCharIsDigit() && !nextCharIs('0')) {
+			return niet_nul();
+		} else {
+			throw new VPException("cijfer verwacht");
+		}
 	}
 
 	char nul() throws VPException {
-		return '0';
+		if (nextCharIs('0')) {
+			return nextChar();
+		} else {
+			throw new VPException("nul verwacht");
+		}
 	}
 
 	char niet_nul() throws VPException {
-		return '0';
+		if (nextCharIsDigit() && !nextCharIs('0')) {
+			return nextChar();
+		} else {
+			throw new VPException("niet-nul verwacht");
+		}
 	}
 
 	char letter() throws VPException {
-		return '0';
+		if (nextCharIsLetter()) {
+			return nextChar();
+		} else {
+			throw new VPException("letter verwacht");
+		}
 	}
 
 	//Hulpmethodes
@@ -128,7 +169,7 @@ class Opgave2 {
 		if (nextCharIs(c)) {
 			nextChar();
 		} else {
-			throw new VPException(c + " verwacht.");
+			throw new VPException(c + " verwacht");
 		}
 	}
 	
@@ -139,7 +180,7 @@ class Opgave2 {
 				nextChar();
 			}
 		} else {
-			throw new VPException("End-of-line verwacht.");
+			throw new VPException("end-of-line verwacht");
 		}
 	}
 	

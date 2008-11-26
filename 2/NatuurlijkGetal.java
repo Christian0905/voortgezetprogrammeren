@@ -41,7 +41,7 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		return compareTo(obj) == 0;
 	}
 
-	public int compareTo(Data obj) throws ClassCastException {
+	public int compareTo(Data obj) {
 		NatuurlijkGetal second = (NatuurlijkGetal)obj;
 		if(length() > second.length()) {
 			return 1;

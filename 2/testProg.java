@@ -31,7 +31,7 @@ class testProg {
 		out.printf("current: %s\n", iLijstje.retrieve().toString());
 		// lijst clonen
 		kopieLijstje = iLijstje.clone();
-		
+		out.printf("kopie lijstje %s\n", kopieLijstje.toString());
 		// zoeken
 		out.printf("zoek 1: %s\n",iLijstje.find(i.init('1')));
 		out.printf("current: %s\n", iLijstje.retrieve().toString());
