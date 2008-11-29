@@ -13,6 +13,7 @@ class Verzameling<E extends Data> implements VerzamelingInterface {
 	}
 	
 	public E retrieve() {
+		elementen.setFirst();
 		return elementen.retrieve();
 	}
 	

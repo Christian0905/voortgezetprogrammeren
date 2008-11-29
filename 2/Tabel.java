@@ -13,7 +13,8 @@ class Tabel implements TabelInterface {
 	}
 
     public Verzameling<NatuurlijkGetal> retrieve(Identifier i) throws VPException {
-		if (elementen.find(i)) {
+		Entry e = new Entry(i, new Verzameling<NatuurlijkGetal>());
+		if (elementen.find(e)) {
 			return elementen.retrieve().inhoud;
 		} else {
 			throw new VPException("identifier niet gevonden");
@@ -22,6 +23,9 @@ class Tabel implements TabelInterface {
 
 	public Tabel insert(Identifier i, Verzameling<NatuurlijkGetal> v) {
 		Entry e = new Entry(i, v);
+		if (elementen.find(e)) {
+			elementen.remove();
+		}
 		elementen.insert(e);
 		return this;
 	}
