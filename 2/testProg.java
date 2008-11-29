@@ -147,7 +147,17 @@ class testProg {
 		testVerzameling.remove(ng.init().append('n').append('o').append('o').append('t'));
 		out.printf("testVerzameling na verwijderen = %s\n", testVerzameling.elementen.toString());
 		out.printf("kopie van testVerzameling na verwijderen = %s\n", kopieVerzameling.elementen.toString());
-		
+		out.printf("\n");
+		out.printf("\n");
+		print('t','e','s','t');
+		print('h','e','y',' ','w','a','t',' ','c','o','o','l','!');
+	}
+	
+	void print(char... c) {
+		for (int i = 0; i<c.length; i++) {
+			out.printf("%s",c[i]);
+		}
+		out.printf("\n");
 	}
 
 	public static void main(String argv[]) {
