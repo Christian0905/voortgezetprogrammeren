@@ -6,7 +6,7 @@ class Opgave2 {
 
 	Scanner in;
 	PrintStream out;
-	
+
 	Tabel variabelen;
 
 	Opgave2() {
@@ -19,25 +19,26 @@ class Opgave2 {
 	public void start() {
 		program();
 	}
-	
+
 	public void program() {
 		while(in.hasNext()) {
 			try {
 				statement();
 			} catch (VPException e) {
 				out.printf("Fout: %s.\n", e.getMessage());
+				in.nextLine();
 			}
 		}
 	}
 
 	void statement() throws VPException {
-		if (nextCharIsLetter()) {
+		if (nextCharInRange("a-zA-Z")) {
 			assignment();
 		} else
-		if (nextCharIs('?')) {
+		if (nextCharInRange("?")) {
 			print_statement();
 		} else
-		if (nextCharIs('/')) {
+		if (nextCharInRange("/")) {
 			commentaar();
 		} else {
 			throw new VPException("statement verwacht");
@@ -47,31 +48,31 @@ class Opgave2 {
 	void assignment() throws VPException {
 		Identifier i = identifier();
 		lees('=');
-		Verzameling e = expressie();
+		Verzameling<NatuurlijkGetal> e = expressie();
 		leesEOL();
+		variabelen.insert(i, e);
 	}
 
 	void print_statement() throws VPException {
 		lees('?');
-		Verzameling e = expressie();
+		Verzameling<NatuurlijkGetal> e = expressie();
 		leesEOL();
+		printVerzameling(e);
 	}
 
 	void commentaar() throws VPException {
-		while(!nextCharIsEOL()) {
-			nextChar();
-		}
-		leesEOL();
+		lees('/');
+		in.nextLine();
 	}
 
 	Identifier identifier() throws VPException {
 		Identifier resultaat = new Identifier();
 		resultaat.init(letter());
-		while(nextCharIsLetter() || nextCharIsDigit()) {
-			if(nextCharIsLetter()) {
+		while(nextCharInRange("a-zA-Z0-9", false)) {
+			if(nextCharInRange("a-zA-Z", false)) {
 				resultaat.append(letter());
 			}
-			if(nextCharIsDigit()) {
+			if(nextCharInRange("0-9", false)) {
 				resultaat.append(cijfer());
 			}
 		}
@@ -80,36 +81,78 @@ class Opgave2 {
 
 	Verzameling<NatuurlijkGetal> expressie() throws VPException {
 		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		char op;
+		resultaat = term();
+		while(nextCharInRange("+|-")) {
+			op = additieve_operator();
+			switch(op) {
+				case '+': resultaat = resultaat.vereniging(term()); break;
+				case '|': resultaat = resultaat.symmetrischVerschil(term()); break;
+				case '-': resultaat = resultaat.verschil(term()); break;
+			}
+		}
 		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> term() throws VPException {
 		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		char op;
+		resultaat = factor();
+		while(nextCharInRange("*")) {
+			op = multiplicatieve_operator();
+			resultaat = resultaat.doorsnede(factor());
+		}
 		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> factor() throws VPException {
 		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		Identifier i;
+		if (nextCharInRange("a-zA-Z")) {
+			i = identifier();
+			resultaat = variabelen.retrieve(i);
+		} else
+		if (nextCharInRange("(")) {
+			resultaat = complexe_factor();
+		} else
+		if (nextCharInRange("{")) {
+			resultaat = verzameling();
+		} else {
+			throw new VPException("factor verwacht");
+		}
 		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> complexe_factor() throws VPException {
 		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		lees('(');
+		resultaat = expressie();
+		lees(')');
 		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> verzameling() throws VPException {
 		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		lees('{');
+		resultaat = rij_natuurlijke_getallen();
+		lees('}');
 		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> rij_natuurlijke_getallen() throws VPException {
 		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		if (nextCharInRange("0-9")) {
+			resultaat.insert(natuurlijk_getal());
+		}
+		while (nextCharInRange(",")) {
+			lees(',');
+			resultaat.insert(natuurlijk_getal());
+		}
 		return resultaat;
 	}
 
 	char additieve_operator() throws VPException {
-		if (nextCharIs('+') || nextCharIs('|') || nextCharIs('-')) {
+		if (nextCharInRange("+|-")) {
 			return nextChar();
 		} else {
 			throw new VPException("additieve operator verwacht");
@@ -117,7 +160,7 @@ class Opgave2 {
 	}
 
 	char multiplicatieve_operator() throws VPException {
-		if (nextCharIs('*')) {
+		if (nextCharInRange("*")) {
 			return nextChar();
 		} else {
 			throw new VPException("multiplicatieve operator verwacht");
@@ -126,11 +169,11 @@ class Opgave2 {
 
 	NatuurlijkGetal natuurlijk_getal() throws VPException {
 		NatuurlijkGetal resultaat = new NatuurlijkGetal();
-		if (nextCharIsDigit() && !nextCharIs('0')) {
+		if (nextCharInRange("1-9")) {
 			resultaat = positief_getal();
 			return resultaat;
 		} else
-		if (nextCharIs('0')) {
+		if (nextCharInRange("0")) {
 			return resultaat;
 		} else {
 			throw new VPException("natuurlijk getal verwacht");
@@ -140,19 +183,17 @@ class Opgave2 {
 	NatuurlijkGetal positief_getal() throws VPException {
 		NatuurlijkGetal resultaat = new NatuurlijkGetal();
 		resultaat.append(niet_nul());
-		while (nextCharIsDigit()) {
+		while (nextCharInRange("0-9", false)) {
 			resultaat.append(cijfer());
 		}
 		return resultaat;
 	}
 
-	boolean lees
-	
 	char cijfer() throws VPException {
-		if (nextCharIs('0')) {
+		if (nextCharInRange("0")) {
 			return nul();
 		} else
-		if (nextCharIsDigit() && !nextCharIs('0')) {
+		if (nextCharInRange("1-9")) {
 			return niet_nul();
 		} else {
 			throw new VPException("cijfer verwacht");
@@ -160,7 +201,7 @@ class Opgave2 {
 	}
 
 	char nul() throws VPException {
-		if (nextCharIs('0')) {
+		if (nextCharInRange("0")) {
 			return nextChar();
 		} else {
 			throw new VPException("nul verwacht");
@@ -168,7 +209,7 @@ class Opgave2 {
 	}
 
 	char niet_nul() throws VPException {
-		if (nextCharIsDigit() && !nextCharIs('0')) {
+		if (nextCharInRange("1-9")) {
 			return nextChar();
 		} else {
 			throw new VPException("niet-nul verwacht");
@@ -176,58 +217,76 @@ class Opgave2 {
 	}
 
 	char letter() throws VPException {
-		if (nextCharIsLetter()) {
+		if (nextCharInRange("a-zA-Z")) {
 			return nextChar();
 		} else {
 			throw new VPException("letter verwacht");
 		}
 	}
 
-	//Hulpmethodes
-	
+	// Hulpmethodes
+
+	void printVerzameling(Verzameling<NatuurlijkGetal> v) {
+		Verzameling kopie = v.clone();
+		NatuurlijkGetal ng;
+		while (!kopie.isEmpty()) {
+			ng = (NatuurlijkGetal)kopie.retrieve();
+			printNatuurlijkGetal(ng);
+			out.printf(" ");
+			kopie.remove(ng);
+		}
+		out.printf("\n");
+	}
+
+	void printNatuurlijkGetal(NatuurlijkGetal ng) {
+		for (int i = 0; i<ng.length(); i++) {
+			out.printf("%c", ng.charAt(i));
+		}
+	}
+
+	char nextChar() {
+		return in.next().charAt(0);
+	}
+
 	void lees(char c) throws VPException {
 		skipSpaces();
-		if (nextCharIs(c)) {
+		if (nextCharInRange(c)) {
 			nextChar();
 		} else {
 			throw new VPException(c + " verwacht");
 		}
 	}
-	
+
 	void leesEOL() throws VPException {
 		skipSpaces();
 		if (nextCharIsEOL()) {
-			if (nextChar() == '\r' && nextCharIs('\n')) {
+			if (nextChar() == '\r' && nextCharInRange("\n")) {
 				nextChar();
+				in.nextLine();
 			}
 		} else {
 			throw new VPException("end-of-line verwacht");
 		}
 	}
-	
+
 	boolean nextCharIsEOL() {
 		skipSpaces();
 		return in.hasNext("\n") || in.hasNext("\r");
 	}
 
-	char nextChar() {
-		skipSpaces();
-		return in.next().charAt(0);
+	boolean nextCharInRange(String range, boolean skipSpaces) {
+		if (skipSpaces) {
+			skipSpaces();
+		}
+	    return in.hasNext("[" + range + "]");
 	}
 
-	boolean nextCharIs(char c) {
-		skipSpaces();
-	    return in.hasNext(Pattern.quote(c+""));
+	boolean nextCharInRange(String range) {
+		return nextCharInRange(range, true);
 	}
 
-	boolean nextCharIsDigit() {
-		skipSpaces();
-	    return in.hasNext("[0-9]");
-	}
-
-	boolean nextCharIsLetter() {
-		skipSpaces();
-	    return in.hasNext("[a-zA-Z]");
+	boolean nextCharInRange(char range) {
+		return nextCharInRange(Character.toString(range));
 	}
 
 	void skipSpaces() {
