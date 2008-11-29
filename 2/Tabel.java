@@ -31,6 +31,14 @@ class Tabel implements TabelInterface {
 	}
 
 	public Tabel clone() {
-		return null;
+		Tabel kopie;
+		try {
+			kopie = (Tabel) super.clone();
+			} catch (CloneNotSupportedException e) {
+				throw new Error("Deze class is niet cloneable.");
+			}
+			kopie.elementen = elementen.clone();
+			return kopie;
+			
 	}
 }

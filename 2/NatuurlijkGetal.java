@@ -37,12 +37,12 @@ class NatuurlijkGetal implements NatuurlijkGetalInterface {
 		return elementen.toString();
 	}
 
-	public boolean equals(NatuurlijkGetal obj) {
-		return compareTo(obj) == 0;
+	public boolean equals(NatuurlijkGetal rhs) {
+		return compareTo(rhs) == 0;
 	}
 
-	public int compareTo(Data obj) {
-		NatuurlijkGetal second = (NatuurlijkGetal)obj;
+	public int compareTo(Data rhs) {
+		NatuurlijkGetal second = (NatuurlijkGetal)rhs;
 		if(length() > second.length()) {
 			return 1;
 		} else
