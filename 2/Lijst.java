@@ -135,7 +135,9 @@ class Lijst<E extends Data> implements LijstInterface {
 		for (Knoop k = first; k != null; k = k.next) {
 			kopie.insert(k.data);
 		}
-		kopie.find(current.data);
+		if (!isEmpty()) {
+			kopie.find(current.data);
+		}
 		return kopie;
 	}
 	
