@@ -28,6 +28,12 @@ public interface VerzamelingInterface<E extends Data> extends Cloneable {
     */
     E retrieve();
 
+    /**	@preconditie	-
+		@postconditie	TRUE: De lijst bevat geen elementen.<br />
+						FALSE: De lijst bevat elementen
+    */
+	boolean isEmpty();
+	
 	/** @preconditie	-
 		@postconditie	Een kopie van element is aanwezig in de verzameling.
 		*/

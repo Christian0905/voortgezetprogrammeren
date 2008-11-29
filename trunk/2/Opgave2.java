@@ -26,7 +26,7 @@ class Opgave2 {
 				statement();
 			} catch (VPException e) {
 				out.printf("Fout: %s.\n", e.getMessage());
-				in.nextLine();
+				if (in.hasNext()) in.nextLine();
 			}
 		}
 	}
@@ -80,7 +80,7 @@ class Opgave2 {
 	}
 
 	Verzameling<NatuurlijkGetal> expressie() throws VPException {
-		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		Verzameling<NatuurlijkGetal> resultaat;
 		char op;
 		resultaat = term();
 		while(nextCharInRange("+|-")) {
@@ -95,7 +95,7 @@ class Opgave2 {
 	}
 
 	Verzameling<NatuurlijkGetal> term() throws VPException {
-		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		Verzameling<NatuurlijkGetal> resultaat;
 		char op;
 		resultaat = factor();
 		while(nextCharInRange("*")) {
@@ -106,7 +106,7 @@ class Opgave2 {
 	}
 
 	Verzameling<NatuurlijkGetal> factor() throws VPException {
-		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		Verzameling<NatuurlijkGetal> resultaat;
 		Identifier i;
 		if (nextCharInRange("a-zA-Z")) {
 			i = identifier();
@@ -124,7 +124,7 @@ class Opgave2 {
 	}
 
 	Verzameling<NatuurlijkGetal> complexe_factor() throws VPException {
-		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		Verzameling<NatuurlijkGetal> resultaat;
 		lees('(');
 		resultaat = expressie();
 		lees(')');
@@ -132,7 +132,7 @@ class Opgave2 {
 	}
 
 	Verzameling<NatuurlijkGetal> verzameling() throws VPException {
-		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		Verzameling<NatuurlijkGetal> resultaat;
 		lees('{');
 		resultaat = rij_natuurlijke_getallen();
 		lees('}');
