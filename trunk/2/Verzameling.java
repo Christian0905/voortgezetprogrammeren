@@ -16,6 +16,10 @@ class Verzameling<E extends Data> implements VerzamelingInterface {
 		return elementen.retrieve();
 	}
 	
+	public boolean isEmpty() {
+		return elementen.isEmpty();
+	}
+	
 	public Verzameling<E> insert(Data d) {
 		if (!elementen.find(d)) {
 			elementen.insert(d);

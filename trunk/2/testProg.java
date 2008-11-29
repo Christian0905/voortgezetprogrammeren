@@ -151,6 +151,27 @@ class testProg {
 		out.printf("\n");
 		print('t','e','s','t');
 		print('h','e','y',' ','w','a','t',' ','c','o','o','l','!');
+		
+		//printverzameling testen
+		out.printf("\n\n Nu komt de nieuwe shit:\n");
+		printVerzameling(kopieVerzameling);
+	}
+	
+	void printVerzameling(Verzameling<NatuurlijkGetal> v) {
+		Verzameling kopie = v.clone();
+		NatuurlijkGetal ng;
+		while (!kopie.isEmpty()) {
+			ng = (NatuurlijkGetal)kopie.retrieve();
+			printNatuurlijkGetal(ng);
+			out.printf(" ");
+			kopie.remove(ng);
+		}
+	}
+	
+	void printNatuurlijkGetal(NatuurlijkGetal ng) {
+		for (int i = 0; i<ng.length(); i++) {
+			out.printf("%c", ng.charAt(i));
+		}
 	}
 	
 	void print(char... c) {
