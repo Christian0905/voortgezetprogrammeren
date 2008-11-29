@@ -35,36 +35,36 @@ class Verzameling<E extends Data> implements VerzamelingInterface {
 		return elementen.size();
 	}
 	
-	public Verzameling<E> doorsnede(Verzameling obj) {
+	public Verzameling<E> doorsnede(Verzameling rhs) {
 		Verzameling<E> resultaat = new Verzameling<E>();
 		for (Knoop k = elementen.first; k != null; k = k.next) {
-			if (obj.elementen.find(k.data)) {
+			if (rhs.elementen.find(k.data)) {
 				resultaat.insert(k.data);
 			}
 		}
 		return resultaat;
 	}
 	
-	public Verzameling<E> verschil(Verzameling obj) {
+	public Verzameling<E> verschil(Verzameling rhs) {
 		Verzameling<E> resultaat = new Verzameling<E>();
 		for (Knoop k = elementen.first; k != null; k = k.next) {
-			if (!obj.elementen.find(k.data)) {
+			if (!rhs.elementen.find(k.data)) {
 				resultaat.insert(k.data);
 			}
 		}
 		return resultaat;
 	}
 	
-	public Verzameling<E> vereniging(Verzameling obj) {
+	public Verzameling<E> vereniging(Verzameling rhs) {
 		Verzameling<E> resultaat = clone();
-		for (Knoop k = obj.elementen.first; k != null; k = k.next) {
+		for (Knoop k = rhs.elementen.first; k != null; k = k.next) {
 			resultaat.insert(k.data);
 		}
 		return resultaat;
 	}
 	
-	public Verzameling<E> symmetrischVerschil(Verzameling obj) {
-		return vereniging(obj).verschil(doorsnede(obj));
+	public Verzameling<E> symmetrischVerschil(Verzameling rhs) {
+		return vereniging(rhs).verschil(doorsnede(rhs));
 	}
 	
 	public Verzameling<E> clone() {

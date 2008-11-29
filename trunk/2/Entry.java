@@ -12,16 +12,24 @@ class Entry implements Data {
 		this.inhoud = inhoud;
 	}
 	
-	public boolean equals(Entry obj) {
-		return compareTo(obj) == 0;
+	public boolean equals(Entry rhs) {
+		return compareTo(rhs) == 0;
 	}
 	
-	public int compareTo(Data obj) {
-		Entry second = (Entry) obj;
+	public int compareTo(Data rhs) {
+		Entry second = (Entry) rhs;
 		return naam.compareTo(second.naam);
 	}
 	
 	public Entry clone() {
-		return null;
+		Entry kopie;
+		try {
+			kopie = (Entry) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Deze class is niet cloneable.");
+		}
+		kopie.naam = naam.clone();
+		kopie.inhoud = inhoud.clone();
+		return kopie;
 	}
 }

@@ -30,12 +30,12 @@ class Identifier implements IdentifierInterface {
 		return elementen.toString();
 	}
 
-	public boolean equals(Identifier obj) {
-		return compareTo(obj) == 0;
+	public boolean equals(Identifier rhs) {
+		return compareTo(rhs) == 0;
 	}
 	
-	public int compareTo(Data obj) {
-		Identifier second = (Identifier)obj;
+	public int compareTo(Data rhs) {
+		Identifier second = (Identifier)rhs;
 		for(int i = 0; i < Math.min(length(), second.length()); i++) {
 			if(charAt(i) > second.charAt(i)) {
 				return 1;
