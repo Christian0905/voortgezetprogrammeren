@@ -17,6 +17,10 @@ class Opgave2 {
 	}
 
 	public void start() {
+		program();
+	}
+	
+	public void program() {
 		while(in.hasNext()) {
 			try {
 				statement();
@@ -27,7 +31,6 @@ class Opgave2 {
 	}
 
 	void statement() throws VPException {
-		skipSpaces();
 		if (nextCharIsLetter()) {
 			assignment();
 		} else
@@ -64,31 +67,45 @@ class Opgave2 {
 	Identifier identifier() throws VPException {
 		Identifier resultaat = new Identifier();
 		resultaat.init(letter());
+		while(nextCharIsLetter() || nextCharIsDigit()) {
+			if(nextCharIsLetter()) {
+				resultaat.append(letter());
+			}
+			if(nextCharIsDigit()) {
+				resultaat.append(cijfer());
+			}
+		}
 		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> expressie() throws VPException {
-		return null;
+		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> term() throws VPException {
-		return null;
+		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> factor() throws VPException {
-		return null;
+		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> complexe_factor() throws VPException {
-		return null;
+		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> verzameling() throws VPException {
-		return null;
+		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		return resultaat;
 	}
 
 	Verzameling<NatuurlijkGetal> rij_natuurlijke_getallen() throws VPException {
-		return null;
+		Verzameling<NatuurlijkGetal> resultaat = new Verzameling<NatuurlijkGetal>();
+		return resultaat;
 	}
 
 	char additieve_operator() throws VPException {
@@ -108,11 +125,13 @@ class Opgave2 {
 	}
 
 	NatuurlijkGetal natuurlijk_getal() throws VPException {
+		NatuurlijkGetal resultaat = new NatuurlijkGetal();
 		if (nextCharIsDigit() && !nextCharIs('0')) {
-			return positief_getal();
+			resultaat = positief_getal();
+			return resultaat;
 		} else
 		if (nextCharIs('0')) {
-			return new NatuurlijkGetal();
+			return resultaat;
 		} else {
 			throw new VPException("natuurlijk getal verwacht");
 		}
@@ -127,6 +146,8 @@ class Opgave2 {
 		return resultaat;
 	}
 
+	boolean lees
+	
 	char cijfer() throws VPException {
 		if (nextCharIs('0')) {
 			return nul();
@@ -185,22 +206,27 @@ class Opgave2 {
 	}
 	
 	boolean nextCharIsEOL() {
+		skipSpaces();
 		return in.hasNext("\n") || in.hasNext("\r");
 	}
 
 	char nextChar() {
+		skipSpaces();
 		return in.next().charAt(0);
 	}
 
 	boolean nextCharIs(char c) {
+		skipSpaces();
 	    return in.hasNext(Pattern.quote(c+""));
 	}
 
 	boolean nextCharIsDigit() {
+		skipSpaces();
 	    return in.hasNext("[0-9]");
 	}
 
 	boolean nextCharIsLetter() {
+		skipSpaces();
 	    return in.hasNext("[a-zA-Z]");
 	}
 
