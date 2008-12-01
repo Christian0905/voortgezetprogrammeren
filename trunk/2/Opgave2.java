@@ -168,16 +168,16 @@ class Opgave2 {
 	}
 
 	NatuurlijkGetal natuurlijk_getal() throws VPException {
-		NatuurlijkGetal resultaat = new NatuurlijkGetal();
+		NatuurlijkGetal resultaat = new NatuurlijkGetal();;
 		if (nextCharInRange("1-9")) {
 			resultaat = positief_getal();
-			return resultaat;
 		} else
 		if (nextCharInRange("0")) {
-			return resultaat;
+			resultaat.append(nul());
 		} else {
 			throw new VPException("natuurlijk getal verwacht");
 		}
+		return resultaat;
 	}
 
 	NatuurlijkGetal positief_getal() throws VPException {
