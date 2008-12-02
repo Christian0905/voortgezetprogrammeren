@@ -108,6 +108,8 @@ class testProg {
 		out.printf("current ngLijst: %s\n", ngLijstje.retrieve().toString());
 		out.print("\n");
 		
+		
+		
 		//Verzameling test
 		testVerzameling.insert(ng.init().append('a').append('a').append('p'));
 		testVerzameling.insert(ng.init().append('n').append('o').append('o').append('t'));
