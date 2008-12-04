@@ -1,7 +1,8 @@
-import java.io.PrintStream;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class SortUniq {
 
@@ -25,7 +26,7 @@ public class SortUniq {
 		try {
 			int startIndex = leesArguments(arguments);
 			leesFiles(arguments, startIndex);
-			printOpslag();
+			//printOpslag();
 		} catch (VPException e) {
 			out.printf("%s\n", e.getMessage());
 			System.exit(0);
@@ -78,6 +79,7 @@ public class SortUniq {
 		while (identifierScanner.hasNext()) {
 			identifier.append(leesChar(identifierScanner));
 		}
+		out.printf("%s\n", identifier); //VERWIJDEREN
 		if (!opslag.present(identifier)) {
 			opslag.add(identifier);
 		} else {
@@ -94,9 +96,9 @@ public class SortUniq {
 	}
 	
 	void printOpslag() {
-		Iterator identifierIterator = sortDescending ? identifierBoom.descendingIterator() : identifierBoom.ascendingIterator();
+		Iterator identifierIterator = sortDescending ? opslag.descendingIterator() : opslag.ascendingIterator();
 		while (identifierIterator.hasNext()) {
-			printIdentifier(identifierIterator.next());
+			printIdentifier((Identifier) identifierIterator.next());
 		}
 	}
 	
