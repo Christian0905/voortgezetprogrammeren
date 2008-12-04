@@ -6,18 +6,17 @@
  
  /** @elementen	Karakters van het type char
 	 @structuur	Lineair
-	 @domein	Alle rijen van karakters bestaande uit letters en cijfers, 
-	beginnend met een letter.
+	 @domein	Alle rijen van karakters bestaande uit letters en cijfers, beginnend met een letter.
 	
 	 @constructor
 	 <h3>Identifier()</h3>
 	 <b>PRE</b><br>
 	 -<br>
 	 <b>POST</b><br>
-Er is een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is "a".
+	Er is een nieuw Identifier object gemaakt. De inhoud van het nieuwe Identifier-object is "a".
 	*/
 
-public interface IdentifierInterface {
+public interface IdentifierInterface extends Data {
 
 	/** @preconditie	c is een letter.
 		@postconditie	De inhoud van het Identifier-object is precies de letter c en het huidige object is geretourneerd.
