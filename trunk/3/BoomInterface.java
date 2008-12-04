@@ -16,7 +16,9 @@
  Er is een nieuw Boom-object gemaakt. De boom bevat geen objecten.
  */
 
-public interface Boom<E extends Data> extends Cloneable {
+import java.util.Iterator;
+
+public interface BoomInterface<E extends Data> extends Cloneable {
 	
 	/** @preconditie	-
 	 @postconditie	Het aantal elementen in de boom is geretourneerd.
@@ -48,15 +50,15 @@ public interface Boom<E extends Data> extends Cloneable {
 	/**	@preconditie	-
 	 @postconditie	De in de binaire zoekboom opgeslagen data zijn in monotoon niet-dalende volgorde doorlopen en in deze volgorde in een object van het type Iterator gezet. Dit object van het type Iterator is daarna geretourneerd.
 	 */
-	Iterator ascendingIterator()
+	Iterator<E> ascendingIterator();
 	
 	/**	@preconditie	-
 	 @postconditie	De in de binaire zoekboom opgeslagen data zijn in monotoon niet-stijgende volgorde doorlopen en in deze volgorde in een object van het type Iterator gezet. Dit object van het type Iterator is daarna geretourneerd.
 	 */
-	Iterator descendingIterator()
+	Iterator<E> descendingIterator();
 	
 	/** @preconditie	-
 	 @postconditie	Een deep-copy van het huidige object is geretourneerd.
 	 */
-	Boom<E> clone()
+	Boom<E> clone();
 }
