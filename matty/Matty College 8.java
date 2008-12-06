@@ -103,12 +103,10 @@ class MattyCollege8 {
 	boolean aanwezig(BoomKnoop w, int x) {
 		if (w == null) {
 			return false;
-		} if (x < w.data) {
+		} else if (x < w.data) {
 			return aanwezig(w.links, x);
-		} else if {
-			(x == w.data) {
+		} else if (x == w.data) {
 			return true;
-			}
 		} else {  // x>w.data
 			return aanwezig(w.rechts, x);
 		}

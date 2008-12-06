@@ -1,21 +1,30 @@
 public class BoomKnoop {
 
-	Identifier data;
+	Data data;
 	BoomKnoop links, rechts;
-		
-	BoomKnoop() {
-		data = null;
-		links = null;
-		rechts = null;
+
+	BoomKnoop(Data d) {
+		this(d, null, null);
 	}
 	
-	BoomKnoop(Identifier i, BoomKnoop l, BoomKnoop r) {
-		data = i;
+	BoomKnoop(Data d, BoomKnoop l, BoomKnoop r) {
+		data = d == null ? null : (Data) d.clone();
 		links = l;
 		rechts = r;
 	}
+
+	public BoomKnoop clone () {
+	    BoomKnoop kopie;
+	    try {
+	        kopie = (BoomKnoop) super.clone();
+	    } catch (CloneNotSupportedException e) {
+	        throw new Error("Deze class is niet Cloneable");
+	    }
+        kopie.data = data == null ? null : (Data) data.clone();
+	    return kopie;
+    }
 		
-	BoomKnoop(Identifier i) {
-		this(i, null, null);
+	public String toString() {
+		return data.toString();
 	}
 }	

@@ -25,7 +25,7 @@ class MattyCollege9 {
 			return;
 		}
 		printInorder(w.links);
-		printf("%s\n, w.data);
+		printf("%s\n", w.data);
 		printInorder(w.rechts);
 	}
 	

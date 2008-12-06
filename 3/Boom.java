@@ -1,37 +1,57 @@
 import java.util.Iterator;
+import java.util.ArrayList;
 
 public class Boom<E extends Data> implements BoomInterface<E> {
 	
-	private BoomKnoop boom;
+	private BoomKnoop wortel;
+	private int aantalKnopen;
 	
 	public Boom() {
-		boom = new BoomKnoop();
+		wortel = null;
+		aantalKnopen = 0;
 	}
 
 	public int size() {
-		return 0;
+		return aantalKnopen;
 	}
 
 	public boolean isEmpty() {
-		return false;
+		return size() == 0;
 	}
 
 	public boolean present(E element) {
-		return false;
+		return present(wortel, element);
 	}
 
-	public Boom<E> add(E element) {  // dit kan niet zonder een wortel variabele
-		if (boom.data == null) {
+	private boolean present(BoomKnoop w, E element) {
+		if (w == null) {
+			return false;
+		} else if (element.compareTo(w.data) < 0) {
+			return present(w.links, element);
+		} else if (element.compareTo(w.data) == 0) {
+			return true;
+		} else {  // element.compareTo(w.data0 > 0
+			return present(w.rechts, element);
+		}
+	}
+
+	public Boom<E> add(E element) {
+		wortel = add(wortel, element);
+		return this;
+	}
+
+	private BoomKnoop add(BoomKnoop w, E element) {
+		if (w == null) {
+			aantalKnopen += 1;
 			return new BoomKnoop(element);
 		}
-		if (element.compareTo(boom.data) <= 0) {
-			boom.links = add(element);
+		if (element.compareTo(w.data) <= 0) {
+			w.links = add(w.links, element);
 		} else {
-			boom.rechts = add(element);
+			w.rechts = add(w.rechts, element);
 		}
-		return boom;
+		return w;
 	}
-	
 
 	public Boom<E> remove(E element) {
 		return this;
