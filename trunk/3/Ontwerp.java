@@ -1,8 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Scanner;
+/*imports*/
 
 public class SortUniq {
 
@@ -26,7 +22,7 @@ public class SortUniq {
 		try {
 			int startIndex = leesArguments(arguments);
 			leesFiles(arguments, startIndex);
-			//printOpslag();
+			printOpslag();
 		} catch (VPException e) {
 			out.printf("%s\n", e.getMessage());
 			System.exit(0);
@@ -49,64 +45,40 @@ public class SortUniq {
 	
 	void leesFiles(String[] files, int startIndex) throws VPException {
 		for (int i=startIndex; i<files.length; i++) {
-			try {
-				Scanner file = new Scanner(new File(files[i]));
-				leesWoorden(file);
-			} catch (FileNotFoundException e) {
-				throw new VPException("Bestand '" + files[i] + "' niet gevonden.");
-			}
+			Scanner file = new Scanner(new File(files[i]));
+			leesWoorden(file);
 		}
 	}
 	
 	void leesWoorden(Scanner in) {
 		in.useDelimiter(NIET_ALFANUMERIEK);
 		while (in.hasNext()) {
-			Scanner woordScanner = new Scanner(in.next());
-			woordScanner.useDelimiter("");
-			if (isIdentifier(woordScanner)) {
-				verwerk(woordScanner);
-			}
+			/*check of scanner een identifier leest, zo ja: verwerk de identifier*/
 		}
 	}
 	
 	boolean isIdentifier(Scanner woordScanner) {
-		return woordScanner.hasNext(LETTER);
+		/*geeft aan of de scanner een identifier leest*/
 	}
 	
 	void verwerk(Scanner identifierScanner) {
-		Identifier identifier = new Identifier();
-		identifier.init(leesChar(identifierScanner));
-		while (identifierScanner.hasNext()) {
-			identifier.append(leesChar(identifierScanner));
-		}
-		out.printf("%s\n", identifier); //VERWIJDEREN
-		if (!opslag.present(identifier)) {
-			opslag.add(identifier);
-		} else {
-			opslag.remove(identifier);
-		}
+		/*lees identifier in*/
+		/*als een kopie van de identifier aanwezig is in opslag: verwijder deze*/
+		/*als er nog geen kopie van identifier aanwezig is in opslag: voeg identifier toe*/
 	}
 
 	char leesChar(Scanner in) {
-		if (caseInsensitive) {
-			return Character.toLowerCase(in.next().charAt(0));
-		} else {
-			return in.next().charAt(0);
-		}
+		/*lees de eerste char van de scanner in en retourneer deze char*/
+		/*als caseInsensitive true is, maak dan een lowercase-char van de ingelezen char*/
 	}
 	
 	void printOpslag() {
-		Iterator identifierIterator = sortDescending ? opslag.descendingIterator() : opslag.ascendingIterator();
-		while (identifierIterator.hasNext()) {
-			printIdentifier((Identifier) identifierIterator.next());
-		}
+		/*print de opslag in oplopende volgorde m.b.v. een iterator*/
+		/*als sortdescending true is, print dan in aflopende volgorde*/
 	}
 	
 	void printIdentifier(Identifier identifier) {
-		for (int i=0; i<identifier.length(); i++) {
-			out.printf("%c", identifier.charAt(i));
-		}
-		out.printf("\n");
+		/*print een regel met daarop alleen identifier*/
 	}
 
 	public static void main(String[] argv) {
