@@ -54,18 +54,57 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 	}
 
 	public Boom<E> remove(E element) {
+		wortel = remove(wortel, element);
 		return this;
+	}
+	
+	private BoomKnoop remove(BoomKnoop w, E element) {
+		if (w == null) {
+			throw new Error("Da ga nie gaan, boom is leeg");
+		}
+		if (element.compareTo(w.data) < 0) {
+			w.links = remove(w.links, element);
+		} else
+		if (element.compareTo(w.data) > 0) {
+			w.rechts = remove(w.rechts, element);
+		} else  // w.data == element
+		if (w.links != null && w.rechts != null) {
+			w.data = maximum(w.links); 
+			w.links = remove(w.links, element);  // waarom kan dit niet met w.data?
+		} else {
+		w = w.links != null?w.links:w.rechts;
+		}
+		return w;
+	}
+	
+	public Identifier maximum(BoomKnoop w) {
+		// help :\
+		return null;
 	}
 
 	public Iterator<E> ascendingIterator() {
+		
+		//nieuwe array list
+		//traversel door boom
+		//voor elk element referentie toevoegen aan arraylist
+		//arraylist casten naar iterator
 		return null;
 	}
 
 	public Iterator<E> descendingIterator() {
+		// snap hier geen hol van
 		return null;
 	}
 
 	public Boom<E> clone() {
-		return null;
+		Boom kopie;
+		try {
+			kopie = (Boom) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Deze class is niet CLoneable");
+		}
+	kopie.wortel = wortel == null ? null : (BoomKnoop) wortel.clone();
+	kopie.aantalKnopen = aantalKnopen;
+	return kopie;
 	}
 }
