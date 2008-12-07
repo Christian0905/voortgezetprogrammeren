@@ -69,30 +69,65 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 			w.rechts = remove(w.rechts, element);
 		} else  // w.data == element
 		if (w.links != null && w.rechts != null) {
-			w.data = maximum(w.links); 
-			w.links = remove(w.links, element);  // waarom kan dit niet met w.data?
+			w.data = vindMaximum(w.links); 
+			w.links = remove(w.links, (E) w.data);  // klopt dit zo?
 		} else {
 		w = w.links != null?w.links:w.rechts;
 		}
 		return w;
 	}
 	
-	public Identifier maximum(BoomKnoop w) {
-		// help :\
-		return null;
+	public Identifier vindMaximum(BoomKnoop w) {
+		if( w != null )
+            while( w.rechts != null )
+                w = w.rechts;
+        
+        return (Identifier) w.data;
 	}
 
+	public void inOrderTraversal() {
+		inOrderTraversal(wortel);
+	}
+	
+	private void inOrderTraversal(BoomKnoop w) {
+		if (w != null) {
+			inOrderTraversal(w.links);
+			//hier referentie toevoegen aan arraylist
+			inOrderTraversal(w.rechts);
+		}
+	}
+	
+	public void reverseInOrderTraversal() {
+		reverseInOrderTraversal(wortel);
+	}
+	
+	private void reverseInOrderTraversal(BoomKnoop w) {
+		if (w != null) {
+			reverseInOrderTraversal(w.rechts);
+			//hier referentie toevoegen aan arraylist
+			reverseInOrderTraversal(w.links);
+		}
+	}
+	
 	public Iterator<E> ascendingIterator() {
+		// inorde = bv 1,2,3,4,5,6, dus dat lijkt me de goede
 		
 		//nieuwe array list
-		//traversel door boom
+		//traversel door boom:
+		inOrderTraversal();
 		//voor elk element referentie toevoegen aan arraylist
 		//arraylist casten naar iterator
 		return null;
 	}
 
 	public Iterator<E> descendingIterator() {
-		// snap hier geen hol van
+		// revers inorder = 6,5,4,3,2,1 dat lijkt me hem?
+		
+		//nieuwe array list
+		//traversal door boom:
+		reverseInOrderTraversal();
+		// voor elk element referentie toeveogen aan arraylist
+		// arraylist casten naar iterator
 		return null;
 	}
 
