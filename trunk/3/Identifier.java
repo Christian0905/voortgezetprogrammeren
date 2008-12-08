@@ -33,7 +33,7 @@ public class Identifier implements IdentifierInterface {
 	public boolean equals(Identifier rhs) {
 		return compareTo(rhs) == 0;
 	}
-	
+
 	public int compareTo(Data rhs) {
 		Identifier second = (Identifier)rhs;
 		for(int i = 0; i < Math.min(length(), second.length()); i++) {
@@ -52,7 +52,7 @@ public class Identifier implements IdentifierInterface {
 		}
 		return 0;
 	}
-	
+
 	public Identifier clone() {
 		Identifier kopie;
 		try {
