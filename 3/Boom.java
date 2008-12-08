@@ -2,10 +2,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 public class Boom<E extends Data> implements BoomInterface<E> {
-	
+
 	private BoomKnoop wortel;
 	private int aantalKnopen;
-	
+
 	public Boom() {
 		wortel = null;
 		aantalKnopen = 0;
@@ -26,9 +26,11 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 	private boolean present(BoomKnoop w, E element) {
 		if (w == null) {
 			return false;
-		} else if (element.compareTo(w.data) < 0) {
+		} else
+		if (element.compareTo(w.data) < 0) {
 			return present(w.links, element);
-		} else if (element.compareTo(w.data) == 0) {
+		} else
+		if (element.compareTo(w.data) == 0) {
 			return true;
 		} else {  // element.compareTo(w.data0 > 0
 			return present(w.rechts, element);
@@ -90,12 +92,6 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		inOrderTraversal(wortel, list);
 		return list.iterator();
 	}
-
-	public Iterator<E> descendingIterator() {
-		ArrayList<E> list = new ArrayList<E>();
-		reverseInOrderTraversal(wortel, list);
-		return list.iterator();
-	}
 	
 	private void inOrderTraversal(BoomKnoop w, ArrayList list) {
 		if (w != null) {
@@ -105,6 +101,12 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		}
 	}
 
+	public Iterator<E> descendingIterator() {
+		ArrayList<E> list = new ArrayList<E>();
+		reverseInOrderTraversal(wortel, list);
+		return list.iterator();
+	}
+	
 	private void reverseInOrderTraversal(BoomKnoop w, ArrayList list) {
 		if (w != null) {
 			reverseInOrderTraversal(w.rechts, list);

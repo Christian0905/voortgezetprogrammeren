@@ -42,14 +42,14 @@ public interface IdentifierInterface extends Data {
 		@postconditie	TRUE : obj bevat dezelfde karakters als de huidige Identifier<br />
 						FALSE: obj bevat niet dezelfde karakters als de huidige Identifier
 		*/
-	boolean equals(Identifier obj);
+	boolean equals(Identifier rhs);
 
 	/** @preconditie	obj heeft het type Identifier
 		@postconditie	Als het de inhoud van this lexicografisch voor de inhoud van obj wordt gesorteerd: een negatief getal is geretourneerd.<br />
 						Als het de inhoud van this gelijk is aan de inhoud van obj: het getal 0 is geretourneerd.<br />
 						Als het de inhoud van this lexicografisch na de inhoud van obj wordt gesorteerd: een positief getal is geretourneerd.
 		*/
-	int compareTo(Data obj);
+	int compareTo(Data rhs);
 
 	/** @preconditie	-
 		@postconditie	Een deep-copy van het huidige object is geretourneerd.
