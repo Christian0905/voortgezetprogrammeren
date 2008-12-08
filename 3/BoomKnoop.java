@@ -6,7 +6,7 @@ public class BoomKnoop {
 	BoomKnoop(Data d) {
 		this(d, null, null);
 	}
-	
+
 	BoomKnoop(Data d, BoomKnoop l, BoomKnoop r) {
 		data = d == null ? null : (Data) d.clone();
 		links = l;
@@ -25,8 +25,8 @@ public class BoomKnoop {
 		kopie.rechts = rechts == null ? null : rechts.clone();
 	    return kopie;
     }
-		
+
 	public String toString() {
 		return data.toString();
 	}
-}	
+}

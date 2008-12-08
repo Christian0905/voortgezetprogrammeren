@@ -27,7 +27,7 @@ public class SortUniq {
 	static final String ALFANUMERIEK = "[a-zA-Z0-9]";
 	static final String LETTER = "[a-zA-Z]";
 	static final String CIJFER = "[0-9]";
-	
+
 	boolean caseInsensitive;
 	boolean	sortDescending;
 
@@ -51,7 +51,7 @@ public class SortUniq {
 			System.exit(0);
 		}
 	}
-	
+
 	int leesArguments(String[] arguments) throws VPException {
 		for (int i=0; i<arguments.length; i++) {
 			if (arguments[i].equals("-i")) {
@@ -65,7 +65,7 @@ public class SortUniq {
 		}
 		throw new VPException("geen file meegegeven");
 	}
-	
+
 	void leesFiles(String[] files, int startIndex) throws VPException {
 		for (int i=startIndex; i<files.length; i++) {
 			try {
@@ -77,9 +77,9 @@ public class SortUniq {
 			}
 		}
 	}
-	
+
 	// Begin parser
-	
+
 	void tekst(Scanner in) throws VPException {
 		while (in.hasNext()) {
 			if(nextCharInRange(in, ALFANUMERIEK)) {
@@ -89,7 +89,7 @@ public class SortUniq {
 			}
 		}
 	}
-	
+
 	void woord(Scanner in) throws VPException {
 		if(nextCharInRange(in, LETTER)) {
 			identifier(in);
@@ -100,7 +100,7 @@ public class SortUniq {
 			throw new VPException("woord verwacht");
 		}
 	}
-	
+
 	void identifier(Scanner in) throws VPException {
 		if(nextCharInRange(in, LETTER)) {
 			Identifier i = new Identifier();
@@ -118,7 +118,7 @@ public class SortUniq {
 			throw new VPException("identifier verwacht");
 		}
 	}
-	
+
 	void non_identifier(Scanner in) throws VPException {
 		if(nextCharInRange(in, CIJFER)) {
 			cijfer(in);
@@ -134,13 +134,13 @@ public class SortUniq {
 			throw new VPException("non-identifier verwacht");
 		}
 	}
-	
+
 	void scheider(Scanner in) throws VPException {
 		while(nextCharInRange(in, NIET_ALFANUMERIEK)) {
 			scheidingsteken(in);
 		}
 	}
-	
+
 	char scheidingsteken(Scanner in) throws VPException {
 		if(!nextCharInRange(in, ALFANUMERIEK)) {
 			return leesChar(in);
@@ -148,7 +148,7 @@ public class SortUniq {
 			throw new VPException("scheidingsteken verwacht");
 		}
 	}
-	
+
 	char letter(Scanner in) throws VPException {
 		if(nextCharInRange(in, LETTER)) {
 			return leesChar(in);
@@ -156,7 +156,7 @@ public class SortUniq {
 			throw new VPException("letter verwacht");
 		}
 	}
-	
+
 	char cijfer(Scanner in) throws VPException {
 		if(nextCharInRange(in, CIJFER)) {
 			return leesChar(in);
@@ -164,13 +164,13 @@ public class SortUniq {
 			throw new VPException("cijfer verwacht");
 		}
 	}
-	
+
 	// Hulpmethodes
-	
+
 	boolean nextCharInRange(Scanner in, String range) {
 	    return in.hasNext("[" + range + "]");
 	}
-	
+
 	void verwerk(Identifier i) {
 		if (!opslag.present(i)) {
 			opslag.add(i);
@@ -186,14 +186,14 @@ public class SortUniq {
 			return in.next().charAt(0);
 		}
 	}
-	
+
 	void printOpslag() {
 		Iterator identifierIterator = sortDescending ? opslag.descendingIterator() : opslag.ascendingIterator();
 		while (identifierIterator.hasNext()) {
 			printIdentifier((Identifier) identifierIterator.next());
 		}
 	}
-	
+
 	void printIdentifier(Identifier identifier) {
 		for (int i=0; i<identifier.length(); i++) {
 			out.printf("%c", identifier.charAt(i));

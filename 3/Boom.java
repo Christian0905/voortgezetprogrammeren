@@ -59,7 +59,7 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		wortel = remove(wortel, element);
 		return this;
 	}
-	
+
 	private BoomKnoop remove(BoomKnoop w, E element) {
 		if (w == null) {
 			throw new Error("Verwijderen onmogelijk, de boom is leeg.");
@@ -78,7 +78,7 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		}
 		return w;
 	}
-	
+
 	private E maximum(BoomKnoop w) {
 		if(w.rechts == null) {
 			return (E) w.data;
@@ -92,7 +92,7 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		inOrderTraversal(wortel, list);
 		return list.iterator();
 	}
-	
+
 	private void inOrderTraversal(BoomKnoop w, ArrayList list) {
 		if (w != null) {
 			inOrderTraversal(w.links, list);
@@ -106,7 +106,7 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		reverseInOrderTraversal(wortel, list);
 		return list.iterator();
 	}
-	
+
 	private void reverseInOrderTraversal(BoomKnoop w, ArrayList list) {
 		if (w != null) {
 			reverseInOrderTraversal(w.rechts, list);

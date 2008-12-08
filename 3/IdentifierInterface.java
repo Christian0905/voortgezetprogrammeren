@@ -3,11 +3,11 @@
  * @author	Twan v.d. Loo
  * @author	Jan van der Lugt
  */
- 
+
  /** @elementen	Karakters van het type char
 	 @structuur	Lineair
 	 @domein	Alle rijen van karakters bestaande uit letters en cijfers, beginnend met een letter.
-	
+
 	 @constructor
 	 <h3>Identifier()</h3>
 	 <b>PRE</b><br>
