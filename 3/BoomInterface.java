@@ -6,7 +6,10 @@
 
 /** @elementen	Objecten van het type E
  @structuur	Binaire boom
- @domein	Alle binaire zoekbomen
+ @domein	Alle binaire zoekbomen, 
+			iedere knoop heeft maximaal 2 kinderen,
+			Linker elementen van een knoop =< element in die knoop,
+			Rechter elementen van een knoop => element in die knoop.
  
  @constructor
  <h3>Boom()</h3>
