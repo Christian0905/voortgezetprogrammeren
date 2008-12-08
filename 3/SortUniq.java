@@ -4,6 +4,23 @@ import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/*******************************************************************\
+*																	*
+* Dit programma parseert invoer volgens de volgende grammatica:		*
+*																	*
+* tekst				= { scheider | woord } <eof>					*
+* scheider			= schiedingsteken { scheidingsteken }			*
+* woord				= identifier | non-identifier					*
+* identifier		= letter { letter | cijfer }					*
+* non-identifier	= cijfer { letter | cijfer }					*
+* scheidingsteken	= <^a-zA-Z0-9>									*
+* letter			= <a-zA-Z>										*
+* cijfer			= <0-9>											*
+*																	*
+* scheider, identifier en non-identifier zijn greedy				*
+*																	*
+\*******************************************************************/
+
 public class SortUniq {
 
 	static final String NIET_ALFANUMERIEK = "[^a-zA-Z0-9]";
@@ -60,6 +77,8 @@ public class SortUniq {
 			}
 		}
 	}
+	
+	// Begin parser
 	
 	void tekst(Scanner in) throws VPException {
 		while (in.hasNext()) {
@@ -146,6 +165,12 @@ public class SortUniq {
 		}
 	}
 	
+	// Hulpmethodes
+	
+	boolean nextCharInRange(Scanner in, String range) {
+	    return in.hasNext("[" + range + "]");
+	}
+	
 	void verwerk(Identifier i) {
 		if (!opslag.present(i)) {
 			opslag.add(i);
@@ -174,10 +199,6 @@ public class SortUniq {
 			out.printf("%c", identifier.charAt(i));
 		}
 		out.printf("\n");
-	}
-	
-	boolean nextCharInRange(Scanner in, String range) {
-	    return in.hasNext("[" + range + "]");
 	}
 
 	public static void main(String[] argv) {
