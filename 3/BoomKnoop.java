@@ -21,6 +21,8 @@ public class BoomKnoop {
 	        throw new Error("Deze class is niet Cloneable");
 	    }
         kopie.data = data == null ? null : (Data) data.clone();
+		kopie.links = links == null ? null : links.clone();
+		kopie.rechts = rechts == null ? null : rechts.clone();
 	    return kopie;
     }
 		

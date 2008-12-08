@@ -33,17 +33,17 @@ class MattyCollege10 {
 // - dat ze een methode "Iterator<E> iterator()" bevat.
 	
 	// foreach statement
-	for(<type element><naam element>: object) {
+	for(<type element> <naam element> : object) {
 	}
 	//vb = alle elementen uit rij worden 0 gemaakt
-	int[]rij = new int[1000];
-	for(int e:rij) {
-		e=0;
+	int[] rij = new int[1000];
+	for(int e : rij) {
+		e = 0;
 	}
 	
 	ArrayList<String> al = new ArrayList<String>();
 	// Er worden een aantal Strings in "al" gestopt
-	for(String e:al) {
+	for(String e : al) {
 		out.printf("%s\n",e);
 	}
 	

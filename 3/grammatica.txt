@@ -6,3 +6,6 @@ identifier	= letter { letter | cijfer }
 non-identifier	= cijfer { letter | cijfer }
 letter		= <a-zA-Z>
 cijfer		= <0-9>
+
+ALTERNATIEF:
+tekst		= { scheider | woord }
