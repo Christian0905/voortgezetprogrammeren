@@ -44,7 +44,7 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 		if (w == null) {
 			aantalKnopen += 1;
 			return new BoomKnoop(element);
-		}
+		} else
 		if (element.compareTo(w.data) <= 0) {
 			w.links = add(w.links, element);
 		} else {
@@ -60,8 +60,8 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 	
 	private BoomKnoop remove(BoomKnoop w, E element) {
 		if (w == null) {
-			throw new Error("Da ga nie gaan, boom is leeg");
-		}
+			throw new Error("Verwijderen onmogelijk, de boom is leeg.");
+		} else
 		if (element.compareTo(w.data) < 0) {
 			w.links = remove(w.links, element);
 		} else
@@ -69,77 +69,58 @@ public class Boom<E extends Data> implements BoomInterface<E> {
 			w.rechts = remove(w.rechts, element);
 		} else  // w.data == element
 		if (w.links != null && w.rechts != null) {
-			w.data = vindMaximum(w.links); 
-			w.links = remove(w.links, (E) w.data);  // klopt dit zo?
+			w.data = maximum(w.links);
+			w.links = remove(w.links, (E) w.data);
 		} else {
-		w = w.links != null?w.links:w.rechts;
+			w = w.links != null ? w.links : w.rechts;
 		}
 		return w;
 	}
 	
-	public Identifier vindMaximum(BoomKnoop w) {
-		if( w != null )
-            while( w.rechts != null )
-                w = w.rechts;
-        
-        return (Identifier) w.data;
+	private E maximum(BoomKnoop w) {
+		if(w.rechts == null) {
+			return (E) w.data;
+		} else {
+			return maximum(w.rechts);
+		}
 	}
 
-	public void inOrderTraversal() {
-		inOrderTraversal(wortel);
-	}
-	
-	private void inOrderTraversal(BoomKnoop w) {
-		if (w != null) {
-			inOrderTraversal(w.links);
-			//hier referentie toevoegen aan arraylist
-			inOrderTraversal(w.rechts);
-		}
-	}
-	
-	public void reverseInOrderTraversal() {
-		reverseInOrderTraversal(wortel);
-	}
-	
-	private void reverseInOrderTraversal(BoomKnoop w) {
-		if (w != null) {
-			reverseInOrderTraversal(w.rechts);
-			//hier referentie toevoegen aan arraylist
-			reverseInOrderTraversal(w.links);
-		}
-	}
-	
 	public Iterator<E> ascendingIterator() {
-		// inorde = bv 1,2,3,4,5,6, dus dat lijkt me de goede
-		
-		//nieuwe array list
-		//traversel door boom:
-		inOrderTraversal();
-		//voor elk element referentie toevoegen aan arraylist
-		//arraylist casten naar iterator
-		return null;
+		ArrayList<E> list = new ArrayList<E>();
+		inOrderTraversal(wortel, list);
+		return list.iterator();
 	}
 
 	public Iterator<E> descendingIterator() {
-		// revers inorder = 6,5,4,3,2,1 dat lijkt me hem?
-		
-		//nieuwe array list
-		//traversal door boom:
-		reverseInOrderTraversal();
-		// voor elk element referentie toeveogen aan arraylist
-		// arraylist casten naar iterator
-		return null;
+		ArrayList<E> list = new ArrayList<E>();
+		reverseInOrderTraversal(wortel, list);
+		return list.iterator();
+	}
+	
+	private void inOrderTraversal(BoomKnoop w, ArrayList list) {
+		if (w != null) {
+			inOrderTraversal(w.links, list);
+			list.add(w.data);
+			inOrderTraversal(w.rechts, list);
+		}
+	}
+
+	private void reverseInOrderTraversal(BoomKnoop w, ArrayList list) {
+		if (w != null) {
+			reverseInOrderTraversal(w.rechts, list);
+			list.add(w.data);
+			reverseInOrderTraversal(w.links, list);
+		}
 	}
 
 	public Boom<E> clone() {
 		Boom kopie;
 		try {
-			kopie = (Boom) super.clone();
+			kopie = (Boom<E>) super.clone();
 		} catch (CloneNotSupportedException e) {
-			throw new Error("Deze class is niet CLoneable");
+			throw new Error("Deze class is niet Cloneable");
 		}
-	kopie.wortel = wortel == null ? null : (BoomKnoop) wortel.clone();
-	kopie.aantalKnopen = aantalKnopen;
-	return kopie;
+		kopie.wortel = wortel == null ? null : wortel.clone();
+		return kopie;
 	}
 }

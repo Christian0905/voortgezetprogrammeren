@@ -6,8 +6,10 @@ import java.util.Scanner;
 
 public class SortUniq {
 
-	static final String NIET_ALFANUMERIEK = "[^a-zA-Z0-9]+";
+	static final String NIET_ALFANUMERIEK = "[^a-zA-Z0-9]";
+	static final String ALFANUMERIEK = "[a-zA-Z0-9]";
 	static final String LETTER = "[a-zA-Z]";
+	static final String CIJFER = "[0-9]";
 	
 	boolean caseInsensitive;
 	boolean	sortDescending;
@@ -26,9 +28,9 @@ public class SortUniq {
 		try {
 			int startIndex = leesArguments(arguments);
 			leesFiles(arguments, startIndex);
-			//printOpslag();
+			printOpslag();
 		} catch (VPException e) {
-			out.printf("%s\n", e.getMessage());
+			out.printf("Fout: %s.\n", e.getMessage());
 			System.exit(0);
 		}
 	}
@@ -44,46 +46,111 @@ public class SortUniq {
 				return i;
 			}
 		}
-		throw new VPException("Geen file meegegeven.");
+		throw new VPException("geen file meegegeven");
 	}
 	
 	void leesFiles(String[] files, int startIndex) throws VPException {
 		for (int i=startIndex; i<files.length; i++) {
 			try {
 				Scanner file = new Scanner(new File(files[i]));
-				leesWoorden(file);
+				file.useDelimiter("");
+				tekst(file);
 			} catch (FileNotFoundException e) {
-				throw new VPException("Bestand '" + files[i] + "' niet gevonden.");
+				throw new VPException("bestand '" + files[i] + "' niet gevonden");
 			}
 		}
 	}
 	
-	void leesWoorden(Scanner in) {
-		in.useDelimiter(NIET_ALFANUMERIEK);
+	void tekst(Scanner in) throws VPException {
 		while (in.hasNext()) {
-			Scanner woordScanner = new Scanner(in.next());
-			woordScanner.useDelimiter("");
-			if (isIdentifier(woordScanner)) {
-				verwerk(woordScanner);
+			if(nextCharInRange(in, ALFANUMERIEK)) {
+				woord(in);
+			} else {
+				scheider(in);
 			}
 		}
 	}
 	
-	boolean isIdentifier(Scanner woordScanner) {
-		return woordScanner.hasNext(LETTER);
+	void woord(Scanner in) throws VPException {
+		if(nextCharInRange(in, LETTER)) {
+			identifier(in);
+		} else
+		if(nextCharInRange(in, CIJFER)) {
+			non_identifier(in);
+		} else {
+			throw new VPException("woord verwacht");
+		}
 	}
 	
-	void verwerk(Scanner identifierScanner) {
-		Identifier identifier = new Identifier();
-		identifier.init(leesChar(identifierScanner));
-		while (identifierScanner.hasNext()) {
-			identifier.append(leesChar(identifierScanner));
-		}
-		out.printf("%s\n", identifier); //VERWIJDEREN
-		if (!opslag.present(identifier)) {
-			opslag.add(identifier);
+	void identifier(Scanner in) throws VPException {
+		if(nextCharInRange(in, LETTER)) {
+			Identifier i = new Identifier();
+			i.init(letter(in));
+			while(nextCharInRange(in, ALFANUMERIEK)) {
+				if(nextCharInRange(in, LETTER)) {
+					i.append(letter(in));
+				} else
+				if(nextCharInRange(in, CIJFER)) {
+					i.append(cijfer(in));
+				}
+			}
+			verwerk(i);
 		} else {
-			opslag.remove(identifier);
+			throw new VPException("identifier verwacht");
+		}
+	}
+	
+	void non_identifier(Scanner in) throws VPException {
+		if(nextCharInRange(in, CIJFER)) {
+			cijfer(in);
+			while(nextCharInRange(in, ALFANUMERIEK)) {
+				if(nextCharInRange(in, LETTER)) {
+					letter(in);
+				} else
+				if(nextCharInRange(in, CIJFER)) {
+					cijfer(in);
+				}
+			}
+		} else {
+			throw new VPException("non-identifier verwacht");
+		}
+	}
+	
+	void scheider(Scanner in) throws VPException {
+		while(nextCharInRange(in, NIET_ALFANUMERIEK)) {
+			scheidingsteken(in);
+		}
+	}
+	
+	char scheidingsteken(Scanner in) throws VPException {
+		if(!nextCharInRange(in, ALFANUMERIEK)) {
+			return leesChar(in);
+		} else {
+			throw new VPException("scheidingsteken verwacht");
+		}
+	}
+	
+	char letter(Scanner in) throws VPException {
+		if(nextCharInRange(in, LETTER)) {
+			return leesChar(in);
+		} else {
+			throw new VPException("letter verwacht");
+		}
+	}
+	
+	char cijfer(Scanner in) throws VPException {
+		if(nextCharInRange(in, CIJFER)) {
+			return leesChar(in);
+		} else {
+			throw new VPException("cijfer verwacht");
+		}
+	}
+	
+	void verwerk(Identifier i) {
+		if (!opslag.present(i)) {
+			opslag.add(i);
+		} else {
+			opslag.remove(i);
 		}
 	}
 
@@ -107,6 +174,10 @@ public class SortUniq {
 			out.printf("%c", identifier.charAt(i));
 		}
 		out.printf("\n");
+	}
+	
+	boolean nextCharInRange(Scanner in, String range) {
+	    return in.hasNext("[" + range + "]");
 	}
 
 	public static void main(String[] argv) {
