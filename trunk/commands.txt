@@ -2,4 +2,4 @@ cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\javac.exe" -classpath $(CURRENT_DI
 cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\javac.exe" -classpath $(CURRENT_DIRECTORY) $(FULL_CURRENT_PATH) -Xlint:unchecked
 cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\java.exe" -cp $(CURRENT_DIRECTORY) $(NAME_PART)
 cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\javadoc.exe" -nodeprecated -nodeprecatedlist -quiet -author -package -tag elementen:a:"Elementen" -tag structuur:a:"Structuur" -tag domein:a:"Domein" -tag constructor:a:"Constructor" -tag param -tag preconditie:a:"PRE-conditie" -tag postconditie:a:"POST-conditie" -tag throws -d $(CURRENT_DIRECTORY)\html $(FULL_CURRENT_PATH)
-cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\dsjavadoc.bat" $(CURRENT_DIRECTORY) $(FULL_CURRENT_PATH)
+cmd /k "C:\Program Files\Java\jdk1.6.0_10\bin\dsjavadoc.bat" $(CURRENT_DIRECTORY) *.java

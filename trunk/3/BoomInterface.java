@@ -4,6 +4,8 @@
  * @author	Jan van der Lugt
  */
 
+import java.util.Iterator; 
+ 
 /** @elementen	Objecten van het type E
  @structuur	Binaire boom
  @domein	Alle binaire zoekbomen,
@@ -18,8 +20,6 @@
  <b>POST</b><br>
  Er is een nieuw Boom-object gemaakt. De boom bevat geen objecten.
  */
-
-import java.util.Iterator;
 
 public interface BoomInterface<E extends Data> extends Cloneable {
 
