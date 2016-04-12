@@ -1,0 +1,443 @@
+package extraAssignment;
+
+import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.EventListener;
+import java.util.EventObject;
+import javax.swing.event.EventListenerList;
+import umontreal.iro.lecuyer.randvar.PoissonGen;
+import umontreal.iro.lecuyer.rng.RandomStream;
+import java.util.LinkedList;
+import umontreal.iro.lecuyer.randvar.ExponentialGen;
+import umontreal.iro.lecuyer.rng.MRG32k3a;
+import umontreal.iro.lecuyer.simevents.Accumulate;
+import umontreal.iro.lecuyer.simevents.Event;
+import umontreal.iro.lecuyer.simevents.Sim;
+import umontreal.iro.lecuyer.stat.StatProbe;
+import umontreal.iro.lecuyer.stat.Tally;
+import umontreal.iro.lecuyer.stat.list.ListOfStatProbes;
+import umontreal.iro.lecuyer.util.TimeUnit;
+
+
+public class callcenter {
+
+	static final int MAX_NUMBER_OF_SIMULATIONS = 100;
+	
+	int simulationNumber;
+	int idleEmployee1;
+	int idleEmployee2;
+	
+	StopEvent stopEvent;
+	
+	Tally serviceTimeTally;
+    Tally serviceLevelTally;
+    Tally waitTimeTally;
+    ListOfStatProbes<StatProbe> stats;
+
+	
+	LinkedList<Call> queue1;
+	LinkedList<Call> queue2;
+	
+	double arrivalRate;
+	double stopTime;
+	
+	CallType1Arrival callType1Arrival;
+	Random random;
+	PrintStream out;
+	
+	public callcenter(){
+		
+		
+		this.stopTime = stopTime;
+		this.arrivalRate = arrivalRate;
+		random = new Random();
+		out = new PrintStream(System.out);
+		
+		
+		callType1Arrival = new CallType1Arrival(new MRG32k3a(), arrivalRate);
+	}
+	
+
+	void start() {	
+		callcentersim();
+		makeReport();
+			
+	}
+
+	private void makeReport() {
+		// TODO Auto-generated method stub			//Doe ik zelf op het laatst
+		// Printen confidence intervals voor fractie klanten van beide types dat meer dan 20sec moet wachten
+		out.printf("The confidence interval for fraction customers type 1: ");
+		
+		out.printf("The confidence interval for fraction customers type 2: ");
+	
+	}
+	
+	void handleProcessType1() {
+		if(idleEmployee1!=0 && !=queue1.isEmpty()){			// hoe geef je aan is niet bij dit?
+			queue1.get(0) = new CallType1Processed();		// hoe kun je eerste uit lijst een nieuw proces starten?
+		}
+	}
+	
+	void handleProcessType2() {
+												//hetzelfde als hierboven
+	}
+	
+	
+	void handleArrivalType1() {
+        Call call = new Call();
+        if (idleEmployee1==0) {
+            queue1.addLast(call);
+        } else {
+        	queue1.ExponentialGen(call);			//call doorsturen naar proces??
+        }
+    }
+	
+	void handleArrivalType2() {
+        Call call = new Call();
+        if (idleEmployee2==0) {
+            queue2.addLast(call);
+        } else {
+            //Server server = serverPool.remove();			//hetzelfde als hierboven
+            //server.startService(call);
+        }
+    }
+
+
+	void callcentersim(){
+		while (simulationNumber<MAX_NUMBER_OF_SIMULATIONS){
+			simulateOneRun();			
+			simulationNumber += 1;
+		}		
+	}
+
+
+	private void simulateOneRun() {
+		Sim.init();
+        waitTimeTally.init();
+        serviceTimeTally.init();
+        serviceLevelTally.init();
+        
+        callType1Arrival.init();
+        stopEvent.schedule(stopTime);		
+        Sim.start();
+        System.out.println(stats.report());
+		
+	}
+	
+	
+
+
+	public static void main(String[] argv) {
+		new callcenter().start();
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------CALL
+
+package extraAssignment;
+
+import java.util.Random;
+
+import umontreal.iro.lecuyer.simevents.Sim;
+
+class Call{
+	private double arrivalTime;
+    private double startTime;
+    private double completionTime;
+    private double waitTime;
+    private double serviceTime;
+    int longWaitingTimeType1;
+    int longWaitingTimeType2;
+    
+    Random random;
+
+    public Call(){
+    	arrivalTime = Sim.time();
+        startTime = Double.NaN;
+        completionTime = Double.NaN;
+        waitTime = Double.NaN;
+        serviceTime = Double.NaN;
+    }
+    public void serviceStarted() {
+        startTime = Sim.time();
+        waitTime = startTime - arrivalTime;
+    }
+    
+    public void completedType1() {
+        serviceTime = drawServiceDurationType1();
+    	completionTime = serviceTime + startTime;
+    }
+    
+    public void completedType2() {
+        serviceTime = drawServiceDurationType2();
+    	completionTime = serviceTime + startTime;
+    }
+    
+    public void counterType1(){
+    	if (waitTime >= 20){
+    		longWaitingTimeType1++;
+    	}
+    }
+    
+    public void counterType2(){
+    	if (waitTime >= 20){
+    		longWaitingTimeType2++;
+    	}
+    }
+    
+    double drawServiceDurationType1() {
+		return Math.round(Math.exp(Math.log(1-random.nextDouble())/(-4)));
+		//return Math.round(Math.log(1-random.nextDouble())/(-4));
+	}
+
+	double drawServiceDurationType2() {
+		return Math.round(Math.exp(Math.log(1-random.nextDouble())/(-3)));
+		//return Math.round(Math.log(1-random.nextDouble())/(-3));
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------ARRIVAL TYPE 1
+package extraAssignment;
+
+import umontreal.iro.lecuyer.randvar.PoissonGen;
+import umontreal.iro.lecuyer.rng.RandomStream;
+import umontreal.iro.lecuyer.simevents.Event;
+
+public class CallType1Arrival extends Event {
+
+	PoissonGen arrivalTimeGen1;
+    double arrivalRate = 2.0;
+
+    public CallType1Arrival(RandomStream rng, double arrivalRate) {
+        this.arrivalRate = arrivalRate;
+        arrivalTimeGen1 = new PoissonGen(rng, arrivalRate);
+    }
+    @Override
+    public void actions() {
+        double nextArrival = arrivalTimeGen1.nextDouble();
+        schedule(nextArrival);//Schedule this event after
+        //nextArrival time units
+        handleArrivalType1();//Gebeurt wel iets hoe kan ik deze functie aanroepen? (hetzelfde als bij 
+        						//										callType1Processed)
+    }
+    
+    public void init() {
+        double nextArrival = arrivalTimeGen1.nextDouble();
+        schedule(nextArrival);//Schedule this event after
+        //nextArrival time units
+        //Gebeurt niets
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------- PROCESSED TYPE 1
+
+package extraAssignment;
+
+import umontreal.iro.lecuyer.randvar.ExponentialGen;
+import umontreal.iro.lecuyer.rng.RandomStream;
+import umontreal.iro.lecuyer.simevents.Event;
+
+public class callType1Processed extends Event {
+
+	double processRate = 4.0;
+	ExponentialGen processTimeGen1;
+	
+	public callType1Processed(RandomStream rng, double processRate){
+	this.processRate = processRate;
+    processTimeGen1 = new ExponentialGen(rng, processRate);
+}
+    
+	public void actions() {
+    	double nextProcess = processTimeGen1.nextDouble();
+        schedule(nextProcess);//Schedule this event after
+        //nextArrival time units
+        handleProcessType1();//Gebeurt wel iets, hoe kan ik deze functie aanroepen??
+    }
+    
+    public void init() {
+        double nextProcess = processTimeGen1.nextDouble();
+        schedule(nextProcess);//Schedule this event after
+        //nextArrival time units
+        //Gebeurt niets
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------ARRIVAL TYPE 2
+package extraAssignment;
+
+import umontreal.iro.lecuyer.randvar.PoissonGen;
+import umontreal.iro.lecuyer.rng.RandomStream;
+import umontreal.iro.lecuyer.simevents.Event;
+
+public class callType2Arrival extends Event {
+
+	PoissonGen arrivalTimeGen2;
+    double arrivalRate = 5.0;
+
+    public callType2Arrival(RandomStream rng, double arrivalRate) {
+        this.arrivalRate = arrivalRate;
+        arrivalTimeGen2 = new PoissonGen(rng, arrivalRate);
+    }
+    @Override
+    public void actions() {
+        double nextArrival = arrivalTimeGen2.nextDouble();
+        schedule(nextArrival);//Schedule this event after
+        //nextArrival time units
+        handleArrival();//Gebeurt  niets 	
+    }
+    
+    public void init() {
+        double nextArrival = arrivalTimeGen2.nextDouble();
+        schedule(nextArrival);//Schedule this event after
+        //nextArrival time units
+        //Gebeurt wel iets
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------- PROCESSED TYPE 2
+package extraAssignment;
+
+import umontreal.iro.lecuyer.randvar.ExponentialGen;
+import umontreal.iro.lecuyer.rng.RandomStream;
+import umontreal.iro.lecuyer.simevents.Event;
+
+public class callType2Processed extends Event {
+
+	double processRate = 4.0;
+	ExponentialGen processTimeGen1;
+	
+	public callType2Processed(RandomStream rng, double processRate){
+	this.processRate = processRate;
+    processTimeGen1 = new ExponentialGen(rng, processRate);
+}
+    
+	public void actions() {
+    	double nextProcess = processTimeGen1.nextDouble();
+        schedule(nextProcess);//Schedule this event after
+        //nextArrival time units
+        handleProcessType1();//Gebeurt wel iets
+    }
+    
+    public void init() {
+        double nextProcess = processTimeGen1.nextDouble();
+        schedule(nextProcess);//Schedule this event after
+        //nextArrival time units
+        //Gebeurt niets
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------STOPEVENT
+
+package extraAssignment;
+
+import umontreal.iro.lecuyer.simevents.Event;
+import umontreal.iro.lecuyer.simevents.Sim;
+
+class StopEvent extends Event {
+
+    public void actions() {
+        Sim.stop();
+    }
+}
+
